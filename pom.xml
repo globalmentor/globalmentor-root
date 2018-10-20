@@ -179,6 +179,7 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<quiet>true</quiet>
+							<detectOfflineLinks>false</detectOfflineLinks>
 						</configuration>
 						<executions>
 							<execution>
@@ -204,5 +205,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
