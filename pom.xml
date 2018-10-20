@@ -47,6 +47,13 @@
 		<mockito.version>2.23.0</mockito.version>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+		</dependency>
+	</dependencies>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
