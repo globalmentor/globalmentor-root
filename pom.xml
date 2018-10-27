@@ -53,6 +53,8 @@
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
 		</dependency>
+		
+		<!-- test scope dependencies -->
 
 		<dependency>
 			<groupId>io.clogr</groupId>
@@ -108,6 +110,14 @@
 				<artifactId>clogr-logback</artifactId>
 				<version>${clogr.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.zalando</groupId>
+				<artifactId>faux-pas</artifactId>
+				<version>0.8.0</version>
+			</dependency>
+
+			<!-- dependencies with default test scope -->
 
 			<dependency>
 				<groupId>junit</groupId>
