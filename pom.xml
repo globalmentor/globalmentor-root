@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+	GlobalMentor, Inc. Parent POM
+	Copyright © 2018 GlobalMentor, Inc. (http://www.globalmentor.com/)
+
+	The following properties will be set:
+	
+	`project.releaseVersion`
+	: The version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
+	  For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`.
+	`build.year`
+	: The year in which the project was built, in UTC; a string in the format `YYYY`. 
+	`build.date`
+	: The date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`. 
+ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -180,6 +194,12 @@
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
 					<version>2.7</version>
 				</plugin>
@@ -199,6 +219,49 @@
 		</pluginManagement>
 
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>set-project-release-version</id>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>project.releaseVersion</name>
+							<value>${project.version}</value>
+							<regex>-.*</regex>
+							<failIfNoMatch>false</failIfNoMatch>
+						</configuration>
+					</execution>
+					<execution>
+						<id>set-build-year</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<locale>en</locale>
+							<timeZone>UTC</timeZone>
+							<name>build.year</name>
+							<pattern>yyyy</pattern>
+						</configuration>
+					</execution>
+					<execution>
+						<id>set-build-date</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<locale>en</locale>
+							<timeZone>UTC</timeZone>
+							<name>build.date</name>
+							<pattern>yyyy-MM-dd</pattern>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
