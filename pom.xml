@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- GlobalMentor, Inc. Parent POM Copyright © 2018 GlobalMentor, Inc. (http://www.globalmentor.com/) The following properties will be set: `project.releaseVersion` : The version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9). For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`. `build.year` : The year in which the project was built, in UTC; a string in the format `YYYY`. `build.date` : The date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`. -->
+<!--
+	GlobalMentor, Inc. Parent POM
+	Copyright © 2018 GlobalMentor, Inc. (http://www.globalmentor.com/)
+
+	The following properties will be set:
+	
+	`project.releaseVersion`
+	: The version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
+	  For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`.
+	`build.year`
+	: The year in which the project was built, in UTC; a string in the format `YYYY`. 
+	`build.date`
+	: The date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`. 
+ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
