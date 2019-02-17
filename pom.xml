@@ -18,7 +18,7 @@
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-parent</artifactId>
-	<version>8.3.0</version>
+	<version>8.4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Parent</name>
@@ -61,6 +61,10 @@
 		<mockito.version>2.24.0</mockito.version>
 		<junit.version>5.4.0</junit.version>
 		<hamcrest.version>2.1</hamcrest.version>
+		<!-- set if generating executable JAR and exe file
+			<exe.main.class>com.example.cli.Example</exe.main.class>
+		-->
+		<exe.filename>${project.artifactId}.exe</exe.filename>
 	</properties>
 
 	<dependencies>
@@ -201,6 +205,40 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>com.akathist.maven.plugins.launch4j</groupId>
+					<artifactId>launch4j-maven-plugin</artifactId>
+					<version>1.7.24</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>launch4j</goal>
+							</goals>
+							<configuration>
+								<headerType>console</headerType>
+								<outfile>${project.build.directory}/${exe.filename}</outfile>
+								<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
+								<errTitle>${project.name}</errTitle>
+								<jre>
+									<minVersion>${maven.compiler.release}</minVersion>
+								</jre>
+								<versionInfo>
+									<fileVersion>${project.releaseVersion}.0</fileVersion>
+									<txtFileVersion>${project.version}</txtFileVersion>
+									<fileDescription>${project.description}</fileDescription>
+									<copyright>Copyright © ${project.inceptionYear}-${build.year} ${project.organization.name}. All rights reserved.</copyright>
+									<productName>${project.name}</productName>
+									<internalName>${project.artifactId}</internalName>
+									<productVersion>${project.releaseVersion}.0</productVersion>
+									<txtProductVersion>${project.version}</txtProductVersion>
+									<originalFilename>${exe.filename}</originalFilename>
+								</versionInfo>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
@@ -234,6 +272,29 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>3.0.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.2.1</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>shade</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<shadedArtifactAttached>true</shadedArtifactAttached>
+						<shadedClassifierName>exe</shadedClassifierName>
+						<transformers>
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>${exe.main.class}</mainClass>
+							</transformer>
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+						</transformers>
+					</configuration>
 				</plugin>
 
 				<plugin>
