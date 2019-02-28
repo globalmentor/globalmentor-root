@@ -58,7 +58,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>2.24.0</mockito.version>
+		<mockito.version>2.24.5</mockito.version>
 		<junit.version>5.4.0</junit.version>
 		<hamcrest.version>2.1</hamcrest.version>
 		<!-- set if generating executable JAR and exe file
@@ -221,7 +221,7 @@
 				<plugin>
 					<groupId>com.akathist.maven.plugins.launch4j</groupId>
 					<artifactId>launch4j-maven-plugin</artifactId>
-					<version>1.7.24</version>
+					<version>1.7.25</version>
 					<executions>
 						<execution>
 							<phase>package</phase>
