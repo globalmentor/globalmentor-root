@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	GlobalMentor, Inc. Parent POM
+	GlobalMentor, Inc. Root POM
 	Copyright © 2018 GlobalMentor, Inc. (http://www.globalmentor.com/)
 
 	The following properties will be set:
@@ -17,13 +17,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.globalmentor</groupId>
-	<artifactId>globalmentor-parent</artifactId>
-	<version>8.4.0</version>
+	<artifactId>globalmentor-root</artifactId>
+	<version>0.8.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>GlobalMentor Parent</name>
-	<description>GlobalMentor parent POM.</description>
-	<url>http://www.globalmentor.com/</url>
+	<name>GlobalMentor Root</name>
+	<description>GlobalMentor root POM.</description>
+	<url>http://www.globalmentor.com/software/</url>
 
 	<licenses>
 		<license>
@@ -48,9 +48,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-parent.git</connection>
-		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-parent.git</developerConnection>
-		<url>https://bitbucket.org/globalmentor/globalmentor-parent</url>
+		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</connection>
+		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</developerConnection>
+		<url>https://bitbucket.org/globalmentor/globalmentor-root</url>
 	</scm>
 
 	<properties>
