@@ -6,6 +6,7 @@
 		<groupId>com.globalmentor</groupId>
 		<artifactId>globalmentor-root</artifactId>
 		<version>0.8.5-SNAPSHOT</version>
+		<relativePath>../root/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>globalmentor-parent</artifactId>
@@ -16,9 +17,9 @@
 	<description>GlobalMentor parent POM.</description>
 
 	<scm>
-		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-parent.git</connection>
-		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-parent.git</developerConnection>
-		<url>https://bitbucket.org/globalmentor/globalmentor-parent</url>
+		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</connection>
+		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</developerConnection>
+		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
 	</scm>
 
 	<properties>

@@ -48,9 +48,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</connection>
-		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</developerConnection>
-		<url>https://bitbucket.org/globalmentor/globalmentor-root</url>
+		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</connection>
+		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</developerConnection>
+		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
 	</scm>
 
 	<properties>
