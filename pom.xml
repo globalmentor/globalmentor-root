@@ -21,7 +21,22 @@
 
 	<name>GlobalMentor POM</name>
 	<description>Unpublished GlobalMentor aggregate POM for parent POMs.</description>
+	<url>http://www.globalmentor.com/software/</url>
 	<inceptionYear>2019</inceptionYear>
+
+	<organization>
+		<name>GlobalMentor, Inc.</name>
+		<url>http://www.globalmentor.com/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Garret Wilson</name>
+			<email>garret@globalmentor.com</email>
+			<organization>GlobalMentor, Inc.</organization>
+			<organizationUrl>http://www.globalmentor.com/</organizationUrl>
+		</developer>
+	</developers>
 
 	<scm>
 		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</connection>
