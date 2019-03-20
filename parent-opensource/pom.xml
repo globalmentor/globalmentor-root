@@ -4,17 +4,25 @@
 
 	<parent>
 		<groupId>com.globalmentor</groupId>
-		<artifactId>globalmentor-root</artifactId>
-		<version>0.8.5-SNAPSHOT</version>
-		<relativePath>../root/pom.xml</relativePath>
+		<artifactId>globalmentor-parent</artifactId>
+		<version>8.5.0-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>globalmentor-parent</artifactId>
-	<version>8.5.0-SNAPSHOT</version>
+	<artifactId>globalmentor-opensource-parent</artifactId>
 	<packaging>pom</packaging>
 
-	<name>GlobalMentor Parent</name>
-	<description>GlobalMentor parent POM.</description>
+	<name>GlobalMentor Open-Source Parent</name>
+	<description>GlobalMentor parent POM for published open-source software.</description>
+	<url>http://www.globalmentor.com/software/</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<scm>
 		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</connection>
@@ -22,90 +30,36 @@
 		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
 	</scm>
 
-	<properties>
-		<clogr.version>0.8.0-SNAPSHOT</clogr.version>
-		<csar.version>0.8.0-SNAPSHOT</csar.version>
-		<confound.version>0.7.0-SNAPSHOT</confound.version>
-		<globalmentor-base.version>0.6.0-SNAPSHOT</globalmentor-base.version>
-		<rincl.version>0.8.0-SNAPSHOT</rincl.version>
-	</properties>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<configuration>
+						<serverId>ossrh</serverId>
+						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- Clogr -->
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
-			<dependency>
-				<groupId>io.clogr</groupId>
-				<artifactId>clogr</artifactId>
-				<version>${clogr.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.clogr</groupId>
-				<artifactId>clogr-logback</artifactId>
-				<version>${clogr.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.clogr</groupId>
-				<artifactId>clogr-logback-provider</artifactId>
-				<version>${clogr.version}</version>
-			</dependency>
-
-			<!-- Confound -->
-			<dependency>
-				<groupId>io.confound</groupId>
-				<artifactId>config</artifactId>
-				<version>${confound.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.confound</groupId>
-				<artifactId>config-file</artifactId>
-				<version>${confound.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.confound</groupId>
-				<artifactId>confound</artifactId>
-				<version>${confound.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.confound</groupId>
-				<artifactId>confound-file</artifactId>
-				<version>${confound.version}</version>
-			</dependency>
-			
-			<!-- Csar -->
-
-			<dependency>
-				<groupId>io.csar</groupId>
-				<artifactId>csar</artifactId>
-				<version>${csar.version}</version>
-			</dependency>
-
-			<!-- GlobalMentor base libraries -->
-
-			<dependency>
-				<groupId>com.globalmentor</groupId>
-				<artifactId>globalmentor-core</artifactId>
-				<version>${globalmentor-base.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.globalmentor</groupId>
-				<artifactId>globalmentor-management</artifactId>
-				<version>${globalmentor-base.version}</version>
-			</dependency>
-
-			<!-- Rincl -->
-
-			<dependency>
-				<groupId>io.rincl</groupId>
-				<artifactId>rincl</artifactId>
-				<version>${csar.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 </project>

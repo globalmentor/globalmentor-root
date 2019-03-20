@@ -15,12 +15,17 @@
 
 	<name>GlobalMentor Parent</name>
 	<description>GlobalMentor parent POM.</description>
+	<url>http://www.globalmentor.com/software/</url>
 
 	<scm>
 		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</connection>
 		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</developerConnection>
 		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
 	</scm>
+
+	<modules>
+		<module>../parent-opensource</module>
+	</modules>
 
 	<properties>
 		<clogr.version>0.8.0-SNAPSHOT</clogr.version>

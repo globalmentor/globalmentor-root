@@ -25,14 +25,6 @@
 	<description>GlobalMentor root POM.</description>
 	<url>http://www.globalmentor.com/software/</url>
 
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
 	<organization>
 		<name>GlobalMentor, Inc.</name>
 		<url>http://www.globalmentor.com/</url>
@@ -52,6 +44,10 @@
 		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</developerConnection>
 		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
 	</scm>
+
+	<modules>
+		<module>../root-opensource</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -341,8 +337,6 @@
 					<version>1.6.8</version>
 					<extensions>true</extensions>
 					<configuration>
-						<serverId>ossrh</serverId>
-						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
 				</plugin>
@@ -441,24 +435,8 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 			</plugin>
-
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
 
 	<profiles>
 		<profile>

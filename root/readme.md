@@ -1,4 +1,4 @@
-# GlobalMentor Root POM.
+# GlobalMentor Root POM
 
 Root POM for GlobalMentor projects. Provides profiles and dependency management for project building and testing.
 
