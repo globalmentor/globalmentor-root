@@ -61,6 +61,7 @@
 			<exe.main.class>com.example.cli.Example</exe.main.class>
 		-->
 		<exe.filename>${project.artifactId}.exe</exe.filename>
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 
 	<dependencies>

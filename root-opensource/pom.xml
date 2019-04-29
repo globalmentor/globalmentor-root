@@ -30,6 +30,10 @@
 		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
 	</scm>
 
+	<properties>
+		<maven.deploy.skip>false</maven.deploy.skip>
+	</properties>
+
 	<build>
 		<pluginManagement>
 			<plugins>
