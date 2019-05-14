@@ -33,7 +33,6 @@
 		<confound.version>0.7.0</confound.version>
 		<globalmentor-base.version>0.6.0</globalmentor-base.version>
 		<rincl.version>0.8.0</rincl.version>
-		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 
 	<dependencyManagement>
