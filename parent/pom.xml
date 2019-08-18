@@ -30,7 +30,7 @@
 	<properties>
 		<clogr.version>0.8.0</clogr.version>
 		<csar.version>0.8.0</csar.version>
-		<confound.version>0.7.0</confound.version>
+		<confound.version>0.7.1-SNAPSHOT</confound.version>
 		<globalmentor-base.version>0.6.2-SNAPSHOT</globalmentor-base.version>
 		<rincl.version>0.8.0</rincl.version>
 	</properties>
