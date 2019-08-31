@@ -18,7 +18,7 @@
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>0.8.5</version>
+	<version>0.8.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
