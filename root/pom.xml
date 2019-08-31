@@ -62,8 +62,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>2.27.0</mockito.version>
-		<junit.version>5.4.0</junit.version>
+		<mockito.version>3.0.0</mockito.version>
+		<junit.version>5.5.1</junit.version>
 		<hamcrest.version>2.1</hamcrest.version>
 		<!-- set if generating executable JAR and exe file
 			<exe.main.class>com.example.cli.Example</exe.main.class>
@@ -206,7 +206,7 @@
 			<dependency>
 				<groupId>javax.faces</groupId>
 				<artifactId>javax.faces-api</artifactId>
-				<version>2.2</version>
+				<version>2.3</version>
 				<scope>provided</scope>
 			</dependency>
 
