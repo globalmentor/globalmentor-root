@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>globalmentor-parent</artifactId>
-	<version>8.5.2</version>
+	<version>8.5.3</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Parent</name>
@@ -31,7 +31,7 @@
 		<clogr.version>0.8.0</clogr.version>
 		<csar.version>0.8.0</csar.version>
 		<confound.version>0.7.1</confound.version>
-		<globalmentor-base.version>0.6.2</globalmentor-base.version>
+		<globalmentor-base.version>0.6.3</globalmentor-base.version>
 		<rincl.version>0.8.0</rincl.version>
 	</properties>
 
