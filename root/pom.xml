@@ -3,23 +3,21 @@
 GlobalMentor, Inc. Root POM
 Copyright © 2018-2019 GlobalMentor, Inc. (http://www.globalmentor.com/)
 
-## Properties Set
+## Properties
 
 `project.releaseVersion`
-: The version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
+: Set to the version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
   For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`.
 `build.year`
-: The year in which the project was built, in UTC; a string in the format `YYYY`. 
+: Set to the year in which the project was built, in UTC; a string in the format `YYYY`. 
 `build.date`
-: The date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`.
-
-## Properties Set
+: Set to the date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`.
 `binSourceDirectory`
 : The source directory for scripts; defaults to `${project.basedir}/src/bin`.
 `binOutputDirectory`
 : The output directory for scripts; defaults to `${project.build.directory}/bin`
 `exe.main.class`
-: The full class name of the class containing the `main()` method for an executable JAR.
+: The full class name of the class containing the `main()` method for an executable JAR; no default.
 
 ## Scripts
 
