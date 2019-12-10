@@ -1,17 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	GlobalMentor, Inc. Root POM
-	Copyright © 2018 GlobalMentor, Inc. (http://www.globalmentor.com/)
+GlobalMentor, Inc. Root POM
+Copyright © 2018-2019 GlobalMentor, Inc. (http://www.globalmentor.com/)
 
-	The following properties will be set:
-	
-	`project.releaseVersion`
-	: The version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
-	  For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`.
-	`build.year`
-	: The year in which the project was built, in UTC; a string in the format `YYYY`. 
-	`build.date`
-	: The date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`. 
+## Properties
+
+`project.releaseVersion`
+: Set to the version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
+  For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`.
+`build.year`
+: Set to the year in which the project was built, in UTC; a string in the format `YYYY`. 
+`build.date`
+: Set to the date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`.
+`binSourceDirectory`
+: The source directory for scripts; defaults to `${project.basedir}/src/bin`.
+`binOutputDirectory`
+: The output directory for scripts; defaults to `${project.build.directory}/bin`
+`exe.main.class`
+: The full class name of the class containing the `main()` method for an executable JAR; no default.
+
+## Scripts
+
+To copy and process scripts, include the following plugins as desired:
+
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-resources-plugin</artifactId>
+	<executions>
+		<execution>
+			<id>copy-bin</id>
+			<phase>process-resources</phase>
+		</execution>
+	</executions>
+</plugin>
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<executions>
+		<execution>
+			<id>set-shell-scripts-executable</id>
+			<phase>process-resources</phase>
+		</execution>
+		<execution>
+			<id>remove-shell-script-extensions</id>
+			<phase>process-resources</phase>
+		</execution>
+	</executions>
+</plugin>
+```
+
+## Executables
+
+To generate an executable, define `exe.main.class` and then include the following plugins as desired:
+
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-shade-plugin</artifactId>
+	<executions>
+		<execution>
+			<id>generate-exe-jar</id>
+			<phase>package</phase>
+		</execution>
+	</executions>
+</plugin>
+<plugin>
+	<groupId>com.akathist.maven.plugins.launch4j</groupId>
+	<artifactId>launch4j-maven-plugin</artifactId>
+	<executions>
+		<execution>
+			<id>generate-exe</id>
+			<phase>package</phase>
+		</execution>
+	</executions>
+</plugin>
+```
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -65,6 +129,8 @@
 		<mockito.version>3.0.0</mockito.version>
 		<junit.version>5.5.1</junit.version>
 		<hamcrest.version>2.1</hamcrest.version>
+		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
+		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
 		<!-- set if generating executable JAR and exe file
 			<exe.main.class>com.example.cli.Example</exe.main.class>
 		-->
@@ -228,13 +294,19 @@
 					<version>1.7.25</version>
 					<executions>
 						<execution>
-							<phase>package</phase>
+							<id>generate-exe</id>
+							<!--
+								Generates a Windows `.exe` file from the `-exe.jar` in `${buildDirectory}`.
+								Depends on the output of the `maven-shade-plugin` `generate-exe-jar` execution.  
+								Enable by specifying a phase (e.g. `package`) in child POM.
+							 -->
+							<phase>none</phase>
 							<goals>
 								<goal>launch4j</goal>
 							</goals>
 							<configuration>
 								<headerType>console</headerType>
-								<outfile>${project.build.directory}/${exe.filename}</outfile>
+								<outfile>${binOutputDirectory}/${exe.filename}</outfile>
 								<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
 								<errTitle>${project.name}</errTitle>
 								<jre>
@@ -260,6 +332,45 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
 					<version>1.8</version>
+					<executions>
+						<execution>
+							<id>set-shell-scripts-executable</id>
+							<!--
+								Enable execute permission for the shell scripts in `${binOutputDirectory}`.
+								Enable by specifying a phase (e.g. `process-resources`) in child POM.
+							 -->
+							<phase>none</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<target>
+									<chmod dir="${binOutputDirectory}" includes="**/*.sh" perm="+x" />
+								</target>
+							</configuration>
+						</execution>
+						<execution>
+							<id>remove-shell-script-extensions</id>
+							<!--
+								Remove the `.sh` extension from shell scripts in `${binOutputDirectory}`.
+								Enable by specifying a phase (e.g. `process-resources`) in child POM.
+							 -->
+							<phase>none</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<target>
+									<move todir="${binOutputDirectory}">
+										<fileset dir="${binOutputDirectory}">
+											<include name="**/*.sh" />
+										</fileset>
+										<mapper type="glob" from="*.sh" to="*" />
+									</move>
+								</target>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 
 				<plugin>
@@ -338,6 +449,37 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.1.0</version>
+					<executions>
+						<execution>
+							<id>copy-bin</id>
+							<!--
+								Copies scripts from `${binSourceDirectory}` to `${binOutputDirectory}`.
+								Uses `~{}` delimiters, because `${}` clashes with script variable replacement.
+								Enable by specifying a phase (e.g. `process-resources`) in child POM.
+							 -->
+							<phase>none</phase>
+							<goals>
+								<goal>resources</goal>
+							</goals>
+							<configuration>
+								<resources>
+									<resource>
+										<directory>${binSourceDirectory}</directory>
+										<includes>
+											<include>**/*.bat</include>
+											<include>**/*.sh</include>
+										</includes>
+										<filtering>true</filtering>
+									</resource>
+								</resources>
+								<useDefaultDelimiters>false</useDefaultDelimiters>
+								<delimiters>
+									<delimiter>~{*}</delimiter>
+								</delimiters>
+								<outputDirectory>${binOutputDirectory}</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 
 				<plugin>
@@ -352,21 +494,27 @@
 					<version>3.2.1</version>
 					<executions>
 						<execution>
+							<id>generate-exe-jar</id>
+							<!--
+								Generates a shaded executable JAR in `${buildDirectory}`.
+								Enable by specifying a phase (e.g. `package`) in child POM.
+							 -->
+							<phase>none</phase>
 							<goals>
 								<goal>shade</goal>
 							</goals>
+							<configuration>
+								<shadedArtifactAttached>true</shadedArtifactAttached>
+								<shadedClassifierName>exe</shadedClassifierName>
+								<transformers>
+									<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+										<mainClass>${exe.main.class}</mainClass>
+									</transformer>
+									<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								</transformers>
+							</configuration>
 						</execution>
 					</executions>
-					<configuration>
-						<shadedArtifactAttached>true</shadedArtifactAttached>
-						<shadedClassifierName>exe</shadedClassifierName>
-						<transformers>
-							<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-								<mainClass>${exe.main.class}</mainClass>
-							</transformer>
-							<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-						</transformers>
-					</configuration>
 				</plugin>
 
 				<plugin>
