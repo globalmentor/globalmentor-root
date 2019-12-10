@@ -65,6 +65,7 @@
 		<mockito.version>3.0.0</mockito.version>
 		<junit.version>5.5.1</junit.version>
 		<hamcrest.version>2.1</hamcrest.version>
+		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
 		<!-- set if generating executable JAR and exe file
 			<exe.main.class>com.example.cli.Example</exe.main.class>
 		-->
@@ -234,7 +235,7 @@
 							</goals>
 							<configuration>
 								<headerType>console</headerType>
-								<outfile>${project.build.directory}/${exe.filename}</outfile>
+								<outfile>${binOutputDirectory}/${exe.filename}</outfile>
 								<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
 								<errTitle>${project.name}</errTitle>
 								<jre>
