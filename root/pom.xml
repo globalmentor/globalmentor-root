@@ -21,7 +21,7 @@ Copyright © 2018-2019 GlobalMentor, Inc. (http://www.globalmentor.com/)
 
 ## Scripts
 
-To copy and process scripts, include the following plugins as desired:
+To copy and process scripts, include the following plugins as desired.
 
 ```xml
 <plugin>
@@ -52,9 +52,21 @@ To copy and process scripts, include the following plugins as desired:
 
 ## Executables
 
-To generate an executable, define `exe.main.class` and then include the following plugins as desired:
+To generate an executable, define `exe.main.class` and then include the following plugins as desired.
+Note that the AntRun `create-bin-output-dir` execution is optional if a previous execution,
+such as `copy-bin`, did not create the output bin directory already.
 
 ```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<executions>
+		<execution>
+			<id>create-bin-output-dir</id>
+			<phase>process-resources</phase>
+		</execution>
+	</executions>
+</plugin>
 <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-shade-plugin</artifactId>
@@ -333,6 +345,22 @@ To generate an executable, define `exe.main.class` and then include the followin
 					<artifactId>maven-antrun-plugin</artifactId>
 					<version>1.8</version>
 					<executions>
+						<execution>
+							<id>create-bin-output-dir</id>
+							<!--
+								Create the `${binOutputDirectory}` directory for use by later tasks.
+								Enable by specifying a phase (e.g. `process-resources`) in child POM.
+							 -->
+							<phase>none</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<target>
+									<mkdir dir="${binOutputDirectory}" />
+								</target>
+							</configuration>
+						</execution>
 						<execution>
 							<id>set-shell-scripts-executable</id>
 							<!--
