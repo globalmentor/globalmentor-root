@@ -94,7 +94,7 @@ such as `copy-bin`, did not create the output bin directory already.
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>0.8.7</version>
+	<version>0.8.8</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
@@ -138,8 +138,8 @@ such as `copy-bin`, did not create the output bin directory already.
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>3.2.4</mockito.version>
-		<junit.version>5.5.2</junit.version>
+		<mockito.version>3.3.3</mockito.version>
+		<junit.version>5.6.2</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
