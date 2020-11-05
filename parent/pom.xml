@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>com.globalmentor</groupId>
 		<artifactId>globalmentor-root</artifactId>
-		<version>0.8.8</version>
+		<version>0.8.9-SNAPSHOT</version>
 		<relativePath>../root/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>globalmentor-parent</artifactId>
-	<version>8.5.5</version>
+	<version>0.8.9-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Parent</name>
