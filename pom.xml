@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 GlobalMentor, Inc. Root POM
-Copyright © 2018-2019 GlobalMentor, Inc. (http://www.globalmentor.com/)
+Copyright © 2018-2020 GlobalMentor, Inc. (https://www.globalmentor.com/)
 
 ## Properties
 
@@ -99,11 +99,11 @@ such as `copy-bin`, did not create the output bin directory already.
 
 	<name>GlobalMentor Root</name>
 	<description>GlobalMentor root POM.</description>
-	<url>http://www.globalmentor.com/software/</url>
+	<url>https://www.globalmentor.com/software/</url>
 
 	<organization>
 		<name>GlobalMentor, Inc.</name>
-		<url>http://www.globalmentor.com/</url>
+		<url>https://www.globalmentor.com/</url>
 	</organization>
 
 	<developers>
@@ -111,7 +111,7 @@ such as `copy-bin`, did not create the output bin directory already.
 			<name>Garret Wilson</name>
 			<email>garret@globalmentor.com</email>
 			<organization>GlobalMentor, Inc.</organization>
-			<organizationUrl>http://www.globalmentor.com/</organizationUrl>
+			<organizationUrl>https://www.globalmentor.com/</organizationUrl>
 		</developer>
 	</developers>
 

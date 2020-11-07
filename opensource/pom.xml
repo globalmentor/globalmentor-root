@@ -13,7 +13,7 @@
 
 	<name>GlobalMentor Open-Source Root</name>
 	<description>GlobalMentor root POM for published open-source software.</description>
-	<url>http://www.globalmentor.com/software/</url>
+	<url>https://www.globalmentor.com/software/</url>
 
 	<licenses>
 		<license>
