@@ -6,7 +6,6 @@
 		<groupId>com.globalmentor</groupId>
 		<artifactId>globalmentor-root</artifactId>
 		<version>0.8.9-SNAPSHOT</version>
-		<relativePath>../root/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>globalmentor-opensource-root</artifactId>
@@ -14,7 +13,7 @@
 
 	<name>GlobalMentor Open-Source Root</name>
 	<description>GlobalMentor root POM for published open-source software.</description>
-	<url>http://www.globalmentor.com/software/</url>
+	<url>https://www.globalmentor.com/software/</url>
 
 	<licenses>
 		<license>
@@ -25,8 +24,8 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</connection>
-		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-pom.git</developerConnection>
-		<url>https://bitbucket.org/globalmentor/globalmentor-pom</url>
+		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</connection>
+		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</developerConnection>
+		<url>https://bitbucket.org/globalmentor/globalmentor-root</url>
 	</scm>
 </project>
