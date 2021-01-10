@@ -777,5 +777,14 @@ such as `copy-bin`, did not create the output bin directory already.
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<!-- Performs a "quick" build without running tests and checks. -->
+			<id>quick</id>
+			<properties>
+				<skipTests>true</skipTests>	<!-- Surefire -->
+				<skipITs>true</skipITs>	<!-- Failsafe -->
+			</properties>
+		</profile>
 	</profiles>
 </project>
