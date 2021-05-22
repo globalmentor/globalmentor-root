@@ -263,18 +263,7 @@ such as `copy-bin`, did not create the output bin directory already.
 				<plugin>
 					<groupId>com.akathist.maven.plugins.launch4j</groupId>
 					<artifactId>launch4j-maven-plugin</artifactId>
-					<version>1.7.25</version>
-					<dependencies>
-						<!--
-							Force [XStream 1.4.13+](https://x-stream.github.io/news.html#1.4.13) to prevent warnings.
-							See [XStream Issue #101](https://github.com/x-stream/xstream/issues/101). 
-						-->
-						<dependency>
-							<groupId>com.thoughtworks.xstream</groupId>
-							<artifactId>xstream</artifactId>
-							<version>1.4.15</version>
-						</dependency>
-					</dependencies>
+					<version>2.1.1</version>
 					<executions>
 						<execution>
 							<id>generate-exe</id>
