@@ -137,8 +137,8 @@ such as `copy-bin`, did not create the output bin directory already.
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release>	<!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>3.10.0</mockito.version>
-		<junit.version>5.7.2</junit.version>
+		<mockito.version>4.5.1</mockito.version>
+		<junit.version>5.8.2</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
@@ -240,7 +240,7 @@ such as `copy-bin`, did not create the output bin directory already.
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-simple</artifactId>
-				<version>1.7.30</version>
+				<version>1.7.36</version>
 			</dependency>
 
 			<dependency>
