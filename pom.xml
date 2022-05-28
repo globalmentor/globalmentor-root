@@ -140,6 +140,8 @@ such as `copy-bin`, did not create the output bin directory already.
 		<mockito.version>4.5.1</mockito.version>
 		<junit.version>5.8.2</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
+		<slf4j.version>1.7.36</slf4j.version>
+		<logback.version>1.2.11</logback.version>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
 		<!-- set if generating executable JAR and exe file
@@ -239,8 +241,56 @@ such as `copy-bin`, did not create the output bin directory already.
 
 			<dependency>
 				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-simple</artifactId>
-				<version>1.7.36</version>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>log4j-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>osgi-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-access</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
 			</dependency>
 
 			<dependency>
