@@ -137,7 +137,7 @@ such as `copy-bin`, did not create the output bin directory already.
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release>	<!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>4.5.1</mockito.version>
+		<mockito.version>4.6.1</mockito.version>
 		<junit.version>5.8.2</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<slf4j.version>1.7.36</slf4j.version>
@@ -296,6 +296,12 @@ such as `copy-bin`, did not create the output bin directory already.
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-inline</artifactId>
 				<version>${mockito.version}</version>
 			</dependency>
 
