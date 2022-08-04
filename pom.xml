@@ -135,7 +135,7 @@ such as `copy-bin`, did not create the output bin directory already.
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>8</maven.compiler.release>	<!-- JDK 9+ required to build -->
+		<maven.compiler.release>8</maven.compiler.release> <!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
 		<mockito.version>4.6.1</mockito.version>
 		<junit.version>5.8.2</junit.version>
@@ -433,6 +433,9 @@ such as `copy-bin`, did not create the output bin directory already.
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
+					<configuration>
+						<showWarnings>true</showWarnings>
+					</configuration>
 				</plugin>
 
 				<plugin>
@@ -827,9 +830,28 @@ such as `copy-bin`, did not create the output bin directory already.
 			<!-- Performs a "quick" build without running tests and checks. -->
 			<id>quick</id>
 			<properties>
-				<skipTests>true</skipTests>	<!-- Surefire -->
-				<skipITs>true</skipITs>	<!-- Failsafe -->
+				<skipTests>true</skipTests> <!-- Surefire -->
+				<skipITs>true</skipITs> <!-- Failsafe -->
 			</properties>
+		</profile>
+
+		<profile>
+			<!-- Turns on additional compiler checks. -->
+			<id>lint</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<showDeprecation>true</showDeprecation>
+							<compilerArgs>
+								<arg>-Xlint:all</arg>
+							</compilerArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>
