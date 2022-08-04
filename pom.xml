@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 GlobalMentor, Inc. Root POM
-Copyright © 2018-2021 GlobalMentor, Inc. (https://www.globalmentor.com/)
+Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 
 ## Properties
 
@@ -115,23 +115,23 @@ such as `copy-bin`, did not create the output bin directory already.
 		</developer>
 	</developers>
 
+	<!--
+		Although this project is open source, no license section is included to
+		prevent child projects from being designated open source via POM inheritance.
 	<licenses>
 		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<name>Apache-2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	-->
 
 	<scm>
 		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</connection>
 		<developerConnection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</developerConnection>
 		<url>https://bitbucket.org/globalmentor/globalmentor-root</url>
 	</scm>
-
-	<modules>
-		<module>opensource</module>
-	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
