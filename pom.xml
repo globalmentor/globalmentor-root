@@ -54,7 +54,7 @@ To copy and process scripts, include the following plugins as desired.
 
 To generate an executable, define `exe.main.class` and then include the following plugins as desired.
 Note that the AntRun `create-bin-output-dir` execution is optional if a previous execution,
-such as `copy-bin`, did not create the output bin directory already.
+such as `copy-bin`, created the output bin directory already.
 
 ```xml
 <plugin>
@@ -400,11 +400,16 @@ such as `copy-bin`, did not create the output bin directory already.
 							<configuration>
 								<target>
 									<move todir="${binOutputDirectory}">
-										<fileset dir="${binOutputDirectory}">
-											<include name="**/*.sh" />
-										</fileset>
+										<fileset dir="${binOutputDirectory}" includes="**/*.sh"/>
 										<mapper type="glob" from="*.sh" to="*" />
 									</move>
+									<!--
+										The `move` task should delete the source file, but for some reason this workaround is needed.
+										See [Maven antrun move not deleting source file](https://stackoverflow.com/q/73240029).
+									-->
+									<delete>  
+										<fileset dir="${binOutputDirectory}" includes="**/*.sh"/>
+									</delete>
 								</target>
 							</configuration>
 						</execution>
