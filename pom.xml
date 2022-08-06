@@ -172,12 +172,6 @@ such as `copy-bin`, created the output bin directory already.
 		</dependency>
 
 		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>com.github.npathai</groupId>
 			<artifactId>hamcrest-optional</artifactId>
 			<scope>test</scope>
@@ -211,25 +205,8 @@ such as `copy-bin`, created the output bin directory already.
 			</dependency>
 
 			<dependency>
-				<groupId>org.junit.vintage</groupId>
-				<artifactId>junit-vintage-engine</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.hamcrest</groupId>
 				<artifactId>hamcrest</artifactId>
-				<version>${hamcrest.version}</version>
-			</dependency>
-
-			<!-- 
-				This dependency was included so JUnit Vintage, i.e., Junit `4.12`, doesn't pull in the outdated version `1.3` of `hamcrest-core`.
-				This should be removed whenever JUnit Vintage is removed as well.
-				See [Hamcrest Issue #224](https://github.com/hamcrest/JavaHamcrest/issues/224).
-			-->
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-core</artifactId>
 				<version>${hamcrest.version}</version>
 			</dependency>
 
