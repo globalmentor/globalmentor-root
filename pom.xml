@@ -308,7 +308,9 @@ such as `copy-bin`, created the output bin directory already.
 								<outfile>${binOutputDirectory}/${exe.filename}</outfile>
 								<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
 								<errTitle>${project.name}</errTitle>
+								<downloadUrl>https://adoptium.net/</downloadUrl>
 								<jre>
+									<path>%JAVA_HOME%;%PATH%</path>
 									<minVersion>${maven.compiler.release}</minVersion>
 								</jre>
 								<versionInfo>
