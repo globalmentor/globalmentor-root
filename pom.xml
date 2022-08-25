@@ -52,7 +52,7 @@ To copy and process scripts, include the following plugins as desired.
 
 ## Executables
 
-To generate an executable, define `exe.main.class` and then include the following plugins as desired.
+To generate a Windows executable, define `exe.main.class` and then include the following plugins as desired.
 Note that the AntRun `create-bin-output-dir` execution is optional if a previous execution,
 such as `copy-bin`, created the output bin directory already.
 
@@ -68,8 +68,8 @@ such as `copy-bin`, created the output bin directory already.
 	</executions>
 </plugin>
 <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-shade-plugin</artifactId>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-maven-plugin</artifactId>
 	<executions>
 		<execution>
 			<id>generate-exe-jar</id>
@@ -296,7 +296,7 @@ such as `copy-bin`, created the output bin directory already.
 							<id>generate-exe</id>
 							<!--
 								Generates a Windows `.exe` file from the `-exe.jar` in `${buildDirectory}`.
-								Depends on the output of the `maven-shade-plugin` `generate-exe-jar` execution.  
+								Depends on the output of the `spring-boot-maven-plugin` `generate-exe-jar` execution.  
 								Enable by specifying a phase (e.g. `package`) in child POM.
 							 -->
 							<phase>none</phase>
@@ -379,7 +379,7 @@ such as `copy-bin`, created the output bin directory already.
 							<configuration>
 								<target>
 									<move todir="${binOutputDirectory}">
-										<fileset dir="${binOutputDirectory}" includes="**/*.sh"/>
+										<fileset dir="${binOutputDirectory}" includes="**/*.sh" />
 										<mapper type="glob" from="*.sh" to="*" />
 									</move>
 								</target>
@@ -501,30 +501,25 @@ such as `copy-bin`, created the output bin directory already.
 				</plugin>
 
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.3.0</version>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>2.7.3</version>
 					<executions>
 						<execution>
 							<id>generate-exe-jar</id>
 							<!--
-								Generates a shaded executable JAR in `${buildDirectory}`.
+								Generates a repackaged nested executable JAR in `${buildDirectory}`.
 								Enable by specifying a phase (e.g. `package`) in child POM.
 							 -->
 							<phase>none</phase>
 							<goals>
-								<goal>shade</goal>
+								<goal>repackage</goal>
 							</goals>
 							<configuration>
-								<shadedArtifactAttached>true</shadedArtifactAttached>
-								<shadedClassifierName>exe</shadedClassifierName>
-								<createDependencyReducedPom>false</createDependencyReducedPom>
-								<transformers>
-									<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-										<mainClass>${exe.main.class}</mainClass>
-									</transformer>
-									<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-								</transformers>
+								<layout>JAR</layout>
+								<classifier>exe</classifier>
+								<mainClass>${exe.main.class}</mainClass>
+								<executable>true</executable>
 							</configuration>
 						</execution>
 					</executions>
