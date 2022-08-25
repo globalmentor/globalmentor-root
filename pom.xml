@@ -18,6 +18,10 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The output directory for scripts; defaults to `${project.build.directory}/bin`
 `exe.main.class`
 : The full class name of the class containing the `main()` method for an executable JAR; no default.
+`exe.base.filename`
+: The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
+`exe.filename`
+: The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
 
 ## Scripts
 
@@ -88,6 +92,11 @@ such as `copy-bin`, created the output bin directory already.
 	</executions>
 </plugin>
 ```
+
+To include the executable JAR as a *nix executable script, invoke the AntRun `copy-exe-jar-as-script` execution.
+Importantly this must occur after the `generate-exe-jar` execution, which usually means it will associated
+with the `package` phase instead of the `process-resources` phase, which the other AntRun executions use.
+
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -147,7 +156,8 @@ such as `copy-bin`, created the output bin directory already.
 		<!-- set if generating executable JAR and exe file
 			<exe.main.class>com.example.cli.Example</exe.main.class>
 		-->
-		<exe.filename>${project.artifactId}.exe</exe.filename>
+		<exe.base.filename>${project.artifactId}</exe.base.filename>
+		<exe.filename>${exe.base.filename}.exe</exe.filename>
 	</properties>
 
 	<dependencies>
@@ -385,6 +395,24 @@ such as `copy-bin`, created the output bin directory already.
 								</target>
 							</configuration>
 						</execution>
+						<execution>
+							<id>copy-exe-jar-as-script</id>
+							<!--
+								Copies the executable JAR to `${binOutputDirectory}` as a *nix script and makes it executable.
+								Enable by specifying a phase (e.g. `package`) in child POM.
+								Depends on the output of the `spring-boot-maven-plugin` `generate-exe-jar` execution.
+							 -->
+							<phase>none</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<target>
+									<copy file="${project.build.directory}/${project.artifactId}-${project.version}-exe.jar" tofile="${binOutputDirectory}/${exe.base.filename}" />
+									<chmod file="${binOutputDirectory}/${exe.base.filename}" perm="+x" />
+								</target>
+							</configuration>
+						</execution>
 					</executions>
 				</plugin>
 
@@ -472,6 +500,10 @@ such as `copy-bin`, created the output bin directory already.
 							<id>copy-bin</id>
 							<!--
 								Copies scripts from `${binSourceDirectory}` to `${binOutputDirectory}`.
+								This is only necessary if special binary files from the source tree should be included.,
+								such as `.bat` or `.sh` scripts.
+								Startup shell scripts have largely been replaced by a using the executable JAR as a *unix script
+								(see `copy-exe-jar-as-script`) and by generating an executable for Windows (see `generate-exe`).  
 								Uses `~{}` delimiters, because `${}` clashes with script variable replacement.
 								Enable by specifying a phase (e.g. `process-resources`) in child POM.
 							 -->
