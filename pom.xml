@@ -103,7 +103,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>0.8.10-SNAPSHOT</version>
+	<version>0.8.10</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
@@ -124,9 +124,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		</developer>
 	</developers>
 
-	<!--
-		Although this project is open source, no license section is included to
-		prevent child projects from being designated open source via POM inheritance.
 	<licenses>
 		<license>
 			<name>Apache-2.0</name>
@@ -134,7 +131,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	-->
 
 	<scm>
 		<connection>scm:git:https://bitbucket.org/globalmentor/globalmentor-root.git</connection>
@@ -146,7 +142,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release> <!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>4.7.0</mockito.version>
+		<mockito.version>4.8.0</mockito.version>
 		<junit.version>5.9.0</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<slf4j.version>1.7.36</slf4j.version>
@@ -811,6 +807,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					</plugin>
 
 					<plugin>
+						<!-- Requires [GnuPG](https://www.gnupg.org/download/) to be installed. -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 						<executions>
