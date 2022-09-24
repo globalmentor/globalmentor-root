@@ -22,6 +22,8 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
 `exe.filename`
 : The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
+`nexus.host`
+: The hostname of the Nexus server for publishing artifacts.
 
 ## Scripts
 
@@ -154,6 +156,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		-->
 		<exe.base.filename>${project.artifactId}</exe.base.filename>
 		<exe.filename>${exe.base.filename}.exe</exe.filename>
+		<nexus.host>s01.oss.sonatype.org</nexus.host>
 	</properties>
 
 	<dependencies>
@@ -596,7 +599,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					<extensions>true</extensions>
 					<configuration>
 						<serverId>ossrh</serverId>
-						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+						<nexusUrl>https://${nexus.host}/</nexusUrl>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
 				</plugin>
@@ -727,11 +730,11 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<url>https://${nexus.host}/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>https://${nexus.host}/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 
