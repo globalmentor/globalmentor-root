@@ -492,6 +492,48 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>3.4.1</version>
+					<configuration>
+						<quiet>true</quiet>
+						<detectOfflineLinks>false</detectOfflineLinks>
+						<tags>
+							<tag>
+								<name>apiNote</name>
+								<placement>a</placement>
+								<head>API Note:</head>
+							</tag>
+							<tag>
+								<name>implSpec</name>
+								<placement>a</placement>
+								<head>Implementation Specification:</head>
+							</tag>
+							<tag>
+								<name>implNote</name>
+								<placement>a</placement>
+								<head>Implementation Note:</head>
+							</tag>
+							<tag>
+								<name>param</name>
+							</tag>
+							<tag>
+								<name>return</name>
+							</tag>
+							<tag>
+								<name>throws</name>
+							</tag>
+							<tag>
+								<name>since</name>
+							</tag>
+							<tag>
+								<name>version</name>
+							</tag>
+							<tag>
+								<name>serialData</name>
+							</tag>
+							<tag>
+								<name>see</name>
+							</tag>
+						</tags>
+					</configuration>
 				</plugin>
 
 				<plugin>
@@ -726,6 +768,18 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 			</plugin>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 			</plugin>
@@ -766,60 +820,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					</plugin>
 
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<quiet>true</quiet>
-							<detectOfflineLinks>false</detectOfflineLinks>
-							<tags>
-								<tag>
-									<name>apiNote</name>
-									<placement>a</placement>
-									<head>API Note:</head>
-								</tag>
-								<tag>
-									<name>implSpec</name>
-									<placement>a</placement>
-									<head>Implementation Specification:</head>
-								</tag>
-								<tag>
-									<name>implNote</name>
-									<placement>a</placement>
-									<head>Implementation Note:</head>
-								</tag>
-								<tag>
-									<name>param</name>
-								</tag>
-								<tag>
-									<name>return</name>
-								</tag>
-								<tag>
-									<name>throws</name>
-								</tag>
-								<tag>
-									<name>since</name>
-								</tag>
-								<tag>
-									<name>version</name>
-								</tag>
-								<tag>
-									<name>serialData</name>
-								</tag>
-								<tag>
-									<name>see</name>
-								</tag>
-							</tags>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-
-					<plugin>
 						<!-- Requires [GnuPG](https://www.gnupg.org/download/) to be installed. -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
@@ -839,6 +839,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 			<!-- Performs a "quick" build without running tests and checks. -->
 			<id>quick</id>
 			<properties>
+				<maven.javadoc.skip>true</maven.javadoc.skip> <!-- Javadoc -->
 				<skipTests>true</skipTests> <!-- Surefire -->
 				<skipITs>true</skipITs> <!-- Failsafe -->
 			</properties>
