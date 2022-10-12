@@ -804,7 +804,8 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 
 	<profiles>
 		<profile>
-			<id>release</id>
+			<!-- Provides additional atifacts and signs all artifacts for publishing. -->
+			<id>publish</id>
 			<build>
 				<plugins>
 					<plugin>
