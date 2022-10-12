@@ -105,7 +105,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>0.8.13-SNAPSHOT</version>
+	<version>0.8.13</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
