@@ -147,8 +147,8 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		<mockito.version>4.8.0</mockito.version>
 		<junit.version>5.9.1</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
-		<slf4j.version>2.0.2</slf4j.version>
-		<logback.version>1.4.1</logback.version>
+		<slf4j.version>2.0.3</slf4j.version>
+		<logback.version>1.4.4</logback.version>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
 		<!-- set if generating executable JAR and exe file
