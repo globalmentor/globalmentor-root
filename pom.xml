@@ -12,6 +12,8 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : Set to the year in which the project was built, in UTC; a string in the format `YYYY`. 
 `build.date`
 : Set to the date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`.
+`assemblyDirectory`
+: The temporary build directory for assembly descriptors; defaults to `${project.build.directory}/assembly`
 `binSourceDirectory`
 : The source directory for scripts; defaults to `${project.basedir}/src/bin`.
 `binOutputDirectory`
@@ -149,6 +151,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		<hamcrest.version>2.2</hamcrest.version>
 		<slf4j.version>2.0.3</slf4j.version>
 		<logback.version>1.4.4</logback.version>
+		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
 		<!-- set if generating executable JAR and exe file
@@ -808,11 +811,60 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 			<id>publish</id>
 			<build>
 				<plugins>
+					<!-- phase: prepare-package -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-bin-assembly-descriptor</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<echo file="${assemblyDirectory}/bin.xml" encoding="${project.build.sourceEncoding}">
+											<![CDATA[<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+	<id>bin</id>
+	<formats>
+		<format>tar.xz</format>
+		<format>zip</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<includes>
+				<include>*-exe.jar</include>
+			</includes>
+			<outputDirectory>bin</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${binOutputDirectory}</directory>
+			<outputDirectory>bin</outputDirectory>
+			<!--
+				Set access permissions to `-rwxrwxr-x`, which corresponds to adding `+x` to a created file.
+				Manually setting permissions files in the archive is necessary for building on Windows,
+				because input files will have lost attributes during the build process.
+			-->
+			<fileMode>0775</fileMode>
+		</fileSet>
+	</fileSets>
+</assembly>]]>
+										</echo>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- phase: package -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
 						<executions>
 							<execution>
+								<phase>package</phase>
 								<goals>
 									<goal>jar-no-fork</goal>
 								</goals>
@@ -820,12 +872,14 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 						</executions>
 					</plugin>
 
+					<!-- phase: verify -->
 					<plugin>
 						<!-- Requires [GnuPG](https://www.gnupg.org/download/) to be installed. -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 						<executions>
 							<execution>
+								<phase>verify</phase>
 								<goals>
 									<goal>sign</goal>
 								</goals>
