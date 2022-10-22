@@ -20,6 +20,8 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The output directory for scripts; defaults to `${project.build.directory}/bin`
 `exe.main.class`
 : The full class name of the class containing the `main()` method for an executable JAR; no default.
+  This property also functions as a flag to create an an executable JAR, create a Windows executable, create a Linux executable script,
+  and if the `publish` profile is in effect produce a "bin" archive with the executable files during the `package` phase.  
 `exe.base.filename`
 : The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
 `exe.filename`
@@ -154,7 +156,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
-		<!-- set if generating executable JAR and exe file
+		<!-- Set to generate executable JAR, exe file, and distributables.
 			<exe.main.class>com.example.cli.Example</exe.main.class>
 		-->
 		<exe.base.filename>${project.artifactId}</exe.base.filename>
@@ -303,42 +305,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					<groupId>com.akathist.maven.plugins.launch4j</groupId>
 					<artifactId>launch4j-maven-plugin</artifactId>
 					<version>2.1.2</version>
-					<executions>
-						<execution>
-							<id>generate-exe</id>
-							<!--
-								Generates a Windows `.exe` file from the `-exe.jar` in `${buildDirectory}`.
-								Depends on the output of the `spring-boot-maven-plugin` `generate-exe-jar` execution.  
-								Enable by specifying a phase (e.g. `package`) in child POM.
-							 -->
-							<phase>none</phase>
-							<goals>
-								<goal>launch4j</goal>
-							</goals>
-							<configuration>
-								<headerType>console</headerType>
-								<outfile>${binOutputDirectory}/${exe.filename}</outfile>
-								<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
-								<errTitle>${project.name}</errTitle>
-								<downloadUrl>https://adoptium.net/</downloadUrl>
-								<jre>
-									<path>%JAVA_HOME%;%PATH%</path>
-									<minVersion>${maven.compiler.release}</minVersion>
-								</jre>
-								<versionInfo>
-									<fileVersion>${project.releaseVersion}.0</fileVersion>
-									<txtFileVersion>${project.version}</txtFileVersion>
-									<fileDescription>${project.description}</fileDescription>
-									<copyright>Copyright © ${project.inceptionYear}-${build.year} ${project.organization.name}. All rights reserved.</copyright>
-									<productName>${project.name}</productName>
-									<internalName>${project.artifactId}</internalName>
-									<productVersion>${project.releaseVersion}.0</productVersion>
-									<txtProductVersion>${project.version}</txtProductVersion>
-									<originalFilename>${exe.filename}</originalFilename>
-								</versionInfo>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 
 				<plugin>
@@ -347,11 +313,11 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					<version>3.1.0</version>
 					<executions>
 						<execution>
-							<id>create-bin-output-dir</id>
 							<!--
 								Create the `${binOutputDirectory}` directory for use by later tasks.
 								Enable by specifying a phase (e.g. `process-resources`) in child POM.
 							 -->
+							<id>create-bin-output-dir</id>
 							<phase>none</phase>
 							<goals>
 								<goal>run</goal>
@@ -363,11 +329,11 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 							</configuration>
 						</execution>
 						<execution>
-							<id>set-shell-scripts-executable</id>
 							<!--
 								Enable execute permission for the shell scripts in `${binOutputDirectory}`.
 								Enable by specifying a phase (e.g. `process-resources`) in child POM.
 							 -->
+							<id>set-shell-scripts-executable</id>
 							<phase>none</phase>
 							<goals>
 								<goal>run</goal>
@@ -379,11 +345,11 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 							</configuration>
 						</execution>
 						<execution>
-							<id>remove-shell-script-extensions</id>
 							<!--
 								Remove the `.sh` extension from shell scripts in `${binOutputDirectory}`.
 								Enable by specifying a phase (e.g. `process-resources`) in child POM.
 							 -->
+							<id>remove-shell-script-extensions</id>
 							<phase>none</phase>
 							<goals>
 								<goal>run</goal>
@@ -394,24 +360,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 										<fileset dir="${binOutputDirectory}" includes="**/*.sh" />
 										<mapper type="glob" from="*.sh" to="*" />
 									</move>
-								</target>
-							</configuration>
-						</execution>
-						<execution>
-							<id>copy-exe-jar-as-script</id>
-							<!--
-								Copies the executable JAR to `${binOutputDirectory}` as a *nix script and makes it executable.
-								Enable by specifying a phase (e.g. `package`) in child POM.
-								Depends on the output of the `spring-boot-maven-plugin` `generate-exe-jar` execution.
-							 -->
-							<phase>none</phase>
-							<goals>
-								<goal>run</goal>
-							</goals>
-							<configuration>
-								<target>
-									<copy file="${project.build.directory}/${project.artifactId}-${project.version}-exe.jar" tofile="${binOutputDirectory}/${exe.base.filename}" />
-									<chmod file="${binOutputDirectory}/${exe.base.filename}" perm="+x" />
 								</target>
 							</configuration>
 						</execution>
@@ -551,7 +499,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					<version>3.3.0</version>
 					<executions>
 						<execution>
-							<id>copy-bin</id>
 							<!--
 								Copies scripts from `${binSourceDirectory}` to `${binOutputDirectory}`.
 								This is only necessary if special binary files from the source tree should be included.,
@@ -561,6 +508,7 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 								Uses `~{}` delimiters, because `${}` clashes with script variable replacement.
 								Enable by specifying a phase (e.g. `process-resources`) in child POM.
 							 -->
+							<id>copy-bin</id>
 							<phase>none</phase>
 							<goals>
 								<goal>resources</goal>
@@ -590,25 +538,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>2.7.3</version>
-					<executions>
-						<execution>
-							<id>generate-exe-jar</id>
-							<!--
-								Generates a repackaged nested executable JAR in `${buildDirectory}`.
-								Enable by specifying a phase (e.g. `package`) in child POM.
-							 -->
-							<phase>none</phase>
-							<goals>
-								<goal>repackage</goal>
-							</goals>
-							<configuration>
-								<layout>JAR</layout>
-								<classifier>exe</classifier>
-								<mainClass>${exe.main.class}</mainClass>
-								<executable>true</executable>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 
 				<plugin>
@@ -809,6 +738,165 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 		<profile>
 			<!-- Provides additional atifacts and signs all artifacts for publishing. -->
 			<id>publish</id>
+
+			<properties>
+				<is.publish.profile>true</is.publish.profile>
+			</properties>
+
+			<build>
+				<plugins>
+					<!-- phase: package -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- phase: verify -->
+					<plugin>
+						<!-- Requires [GnuPG](https://www.gnupg.org/download/) to be installed. -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+
+		<profile>
+			<!-- Generates program executable and related distributables if `exe.main.class` property is defined. -->
+			<id>generate-exe</id>
+
+			<activation>
+				<property>
+					<name>exe.main.class</name>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+					<!-- phase: package -->
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<!--
+									Generates a repackaged nested executable JAR in `${buildDirectory}`.
+								-->
+								<id>generate-exe-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>repackage</goal>
+								</goals>
+								<configuration>
+									<layout>JAR</layout>
+									<classifier>exe</classifier>
+									<mainClass>${exe.main.class}</mainClass>
+									<executable>true</executable>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>com.akathist.maven.plugins.launch4j</groupId>
+						<artifactId>launch4j-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<!--
+									Generates a Windows `.exe` file from the `-exe.jar` in `${buildDirectory}`.
+									Depends on the output of the `spring-boot-maven-plugin` `generate-exe-jar` execution.  
+								 -->
+								<id>generate-exe</id>
+								<phase>package</phase>
+								<goals>
+									<goal>launch4j</goal>
+								</goals>
+								<configuration>
+									<headerType>console</headerType>
+									<outfile>${binOutputDirectory}/${exe.filename}</outfile>
+									<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
+									<errTitle>${project.name}</errTitle>
+									<downloadUrl>https://adoptium.net/</downloadUrl>
+									<jre>
+										<path>%JAVA_HOME%;%PATH%</path>
+										<minVersion>${maven.compiler.release}</minVersion>
+									</jre>
+									<versionInfo>
+										<fileVersion>${project.releaseVersion}.0</fileVersion>
+										<txtFileVersion>${project.version}</txtFileVersion>
+										<fileDescription>${project.description}</fileDescription>
+										<copyright>Copyright © ${project.inceptionYear}-${build.year} ${project.organization.name}. All rights reserved.</copyright>
+										<productName>${project.name}</productName>
+										<internalName>${project.artifactId}</internalName>
+										<productVersion>${project.releaseVersion}.0</productVersion>
+										<txtProductVersion>${project.version}</txtProductVersion>
+										<originalFilename>${exe.filename}</originalFilename>
+									</versionInfo>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<!--
+									Copies the executable JAR to `${binOutputDirectory}` as a *nix script and makes it executable.
+									Enable by specifying a phase (e.g. `package`) in child POM.
+									Depends on the output of the `spring-boot-maven-plugin` `generate-exe-jar` execution.
+								 -->
+								<id>copy-exe-jar-as-script</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="${project.build.directory}/${project.artifactId}-${project.version}-exe.jar" tofile="${binOutputDirectory}/${exe.base.filename}" />
+										<chmod file="${binOutputDirectory}/${exe.base.filename}" perm="+x" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- Creates a "bin" distributable if there is a `target/bin` directory (binary files have been copied and/or an executable generated and copied as script)
+				_and_ the `publish` profile has been activated. -->
+			<id>assemble-bin-dist</id>
+
+			<activation>
+				<property>
+					<name>is.publish.profile</name>
+				</property>
+				<file>
+					<exists>${binOutputDirectory}</exists>
+				</file>
+			</activation>
+
 			<build>
 				<plugins>
 					<!-- phase: prepare-package -->
@@ -817,6 +905,9 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
+								<!--
+									Generates an assembly descriptor for the binary distribution.
+								-->
 								<id>generate-bin-assembly-descriptor</id>
 								<phase>prepare-package</phase>
 								<goals>
@@ -858,37 +949,32 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 						</executions>
 					</plugin>
 
-					<!-- phase: package -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
+						<artifactId>maven-assembly-plugin</artifactId>
 						<executions>
 							<execution>
+								<!--
+									Assembles the binary distribution.
+									Depends on the output of `generate-bin-assembly-descriptor`.
+								-->
+								<id>assemble-bin-dist</id>
 								<phase>package</phase>
 								<goals>
-									<goal>jar-no-fork</goal>
+									<goal>single</goal>
 								</goals>
-							</execution>
-						</executions>
-					</plugin>
-
-					<!-- phase: verify -->
-					<plugin>
-						<!-- Requires [GnuPG](https://www.gnupg.org/download/) to be installed. -->
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
+								<configuration>
+									<descriptors>
+										<descriptor>${assemblyDirectory}/bin.xml</descriptor>
+									</descriptors>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
+
 
 		<profile>
 			<!-- Performs a "quick" build without running tests and checks. -->
@@ -899,5 +985,6 @@ with the `package` phase instead of the `process-resources` phase, which the oth
 				<skipITs>true</skipITs> <!-- Failsafe -->
 			</properties>
 		</profile>
+
 	</profiles>
 </project>
