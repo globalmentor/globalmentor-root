@@ -5,6 +5,7 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 
 ## Properties
 
+### Generated Properties
 `project.releaseVersion`
 : Set to the version to use for release, without any qualifiers, as per [Semantic Versioning 2.0.0 Item 9](https://semver.org/#spec-item-9).
   For example, both `1.2.3-SNAPSHOT` and `1.2.3-beta.4` yield a release version of `1.2.3`.
@@ -14,6 +15,8 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : Set to the date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`.
 `assemblyDirectory`
 : The temporary build directory for assembly descriptors; defaults to `${project.build.directory}/assembly`
+
+### Configurable Properties
 `binSourceDirectory`
 : The source directory for scripts; defaults to `${project.basedir}/src/bin`.
 `binOutputDirectory`
@@ -29,6 +32,14 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
 `nexus.host`
 : The hostname of the Nexus server for publishing artifacts.
+
+
+### Internal Properties
+`_exe.main.class.as.absolute.path`
+: If `exe.base.filename` defined, set to the absolute path form of the class; e.g. `com.example.MainClass` becomes `/com/example/MainClass`. 
+`is-skip-generate-exe`
+: Set to `false` if `exe.base.filename` is defined; otherwise set to `true`.
+  This property is used to skip exe-related plugin executions.
 
 ## Scripts
 
@@ -53,9 +64,6 @@ in the `pre-integration-test` phase.
 
 The executable JAR will automatically be copied into the same directory in the same phase as a *nix executable script
 as long as the `exe.main.class` has been defined.
-
-_Implementation Note: A `is-skip-generate-exe` property is automatically generated, set to `true` by default but
-set to `false` if `exe.main.class` is set to any value. This property is used to skip exe-related plugin executions.
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -115,6 +123,8 @@ set to `false` if `exe.main.class` is set to any value. This property is used to
 		<exe.base.filename>${project.artifactId}</exe.base.filename>
 		<exe.filename>${exe.base.filename}.exe</exe.filename>
 		<nexus.host>s01.oss.sonatype.org</nexus.host>
+		<_xml.cdata.begin>&lt;![CDATA[</_xml.cdata.begin>
+		<_xml.cdata.end>]]&gt;</_xml.cdata.end>
 	</properties>
 
 	<dependencies>
@@ -524,7 +534,7 @@ set to `false` if `exe.main.class` is set to any value. This property is used to
 							<pattern>yyyy-MM-dd</pattern>
 						</configuration>
 					</execution>
-					<!-- Set Boolean `is-skip-generate-exe` equivalent to "not defined `exe.main.class`". -->
+					<!-- Sets Boolean `is-skip-generate-exe` equivalent to "not defined `exe.main.class`". -->
 					<execution>
 						<id>set-is-skip-generate-exe-true-or-prefixed</id>
 						<phase>validate</phase>
@@ -550,6 +560,24 @@ set to `false` if `exe.main.class` is set to any value. This property is used to
 							<value>${is-skip-generate-exe}</value>
 							<regex>_.*</regex>
 							<replacement>false</replacement>
+							<failIfNoMatch>false</failIfNoMatch>
+						</configuration>
+					</execution>
+					<!--
+						Sets `_exe.main.class.as.absolute.path` to absolute path version of `exe.main.class`,
+						e.g. `/com/example/MainClass` for `com.example.MainClass`.
+						If `exe.main.class` is undefined, the value will be invalid and should be ignored. 
+					-->
+					<execution>
+						<id>set-exe-main-class-as-path</id>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>_exe.main.class.as.absolute.path</name>
+							<value>/${exe.main.class}</value>
+							<regex>\.</regex>
+							<replacement>/</replacement>
 							<failIfNoMatch>false</failIfNoMatch>
 						</configuration>
 					</execution>
@@ -616,7 +644,7 @@ set to `false` if `exe.main.class` is set to any value. This property is used to
 				<artifactId>nexus-staging-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- Generate program executable and related distributables. -->
+			<!-- Generate program executable and related distributables if `exe.main.class` is set. -->
 			<!-- phase: package -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -687,6 +715,33 @@ set to `false` if `exe.main.class` is set to any value. This property is used to
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
+					<!-- phase: generate-resources -->
+					<execution>
+						<!--
+							Generates a build properties file for `exe.main.class`, e.g. for `com.example.MainClass`
+							in the form `target/classes/com/example/MainClass-build.properties.xml`.
+						-->
+						<id>generate-bin-assembly-descriptor</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<skip>${is-skip-generate-exe}</skip>
+							<target>
+								<echo file="${project.build.outputDirectory}${_exe.main.class.as.absolute.path}-build.properties.xml" encoding="UTF-8">
+									<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Generated build information for class `${exe.main.class}`.</comment>
+	<entry key="name">${_xml.cdata.begin}${project.name}${_xml.cdata.end}</entry>
+	<entry key="version">${_xml.cdata.begin}${project.version}${_xml.cdata.end}</entry>
+</properties>]]>
+								</echo>
+							</target>
+						</configuration>
+					</execution>
+					<!-- phase: package -->
 					<execution>
 						<!--
 							Copies the executable JAR to `${binOutputDirectory}` as a *nix script and makes it executable.
@@ -745,7 +800,7 @@ set to `false` if `exe.main.class` is set to any value. This property is used to
 								<configuration>
 									<skip>${is-skip-generate-exe}</skip>
 									<target>
-										<echo file="${assemblyDirectory}/bin.xml" encoding="${project.build.sourceEncoding}">
+										<echo file="${assemblyDirectory}/bin.xml" encoding="UTF-8">
 											<![CDATA[<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
 	<id>bin</id>
 	<formats>
