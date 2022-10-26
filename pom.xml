@@ -37,7 +37,7 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 ### Internal Properties
 `_exe.main.class.as.absolute.path`
 : If `exe.base.filename` defined, set to the absolute path form of the class; e.g. `com.example.MainClass` becomes `/com/example/MainClass`. 
-`is-skip-generate-exe`
+`_is-skip-generate-exe`
 : Set to `false` if `exe.base.filename` is defined; otherwise set to `true`.
   This property is used to skip exe-related plugin executions.
 
@@ -534,7 +534,7 @@ as long as the `exe.main.class` has been defined.
 							<pattern>yyyy-MM-dd</pattern>
 						</configuration>
 					</execution>
-					<!-- Sets Boolean `is-skip-generate-exe` equivalent to "not defined `exe.main.class`". -->
+					<!-- Sets Boolean `_is-skip-generate-exe` equivalent to "not defined `exe.main.class`". -->
 					<execution>
 						<id>set-is-skip-generate-exe-true-or-prefixed</id>
 						<phase>validate</phase>
@@ -542,7 +542,7 @@ as long as the `exe.main.class` has been defined.
 							<goal>regex-property</goal>
 						</goals>
 						<configuration>
-							<name>is-skip-generate-exe</name>
+							<name>_is-skip-generate-exe</name>
 							<value>_${exe.main.class}</value>
 							<regex>_\$\{exe.main.class\}</regex>
 							<replacement>true</replacement>
@@ -556,8 +556,8 @@ as long as the `exe.main.class` has been defined.
 							<goal>regex-property</goal>
 						</goals>
 						<configuration>
-							<name>is-skip-generate-exe</name>
-							<value>${is-skip-generate-exe}</value>
+							<name>_is-skip-generate-exe</name>
+							<value>${_is-skip-generate-exe}</value>
 							<regex>_.*</regex>
 							<replacement>false</replacement>
 							<failIfNoMatch>false</failIfNoMatch>
@@ -661,7 +661,7 @@ as long as the `exe.main.class` has been defined.
 							<goal>repackage</goal>
 						</goals>
 						<configuration>
-							<skip>${is-skip-generate-exe}</skip>
+							<skip>${_is-skip-generate-exe}</skip>
 							<layout>JAR</layout>
 							<classifier>exe</classifier>
 							<mainClass>${exe.main.class}</mainClass>
@@ -686,7 +686,7 @@ as long as the `exe.main.class` has been defined.
 							<goal>launch4j</goal>
 						</goals>
 						<configuration>
-							<skip>${is-skip-generate-exe}</skip>
+							<skip>${_is-skip-generate-exe}</skip>
 							<headerType>console</headerType>
 							<outfile>${binOutputDirectory}/${exe.filename}</outfile>
 							<jar>${project.build.directory}/${project.artifactId}-${project.version}-exe.jar</jar>
@@ -727,7 +727,7 @@ as long as the `exe.main.class` has been defined.
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<skip>${is-skip-generate-exe}</skip>
+							<skip>${_is-skip-generate-exe}</skip>
 							<target>
 								<echo file="${project.build.outputDirectory}${_exe.main.class.as.absolute.path}-build.properties.xml" encoding="UTF-8">
 									<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -754,7 +754,7 @@ as long as the `exe.main.class` has been defined.
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<skip>${is-skip-generate-exe}</skip>
+							<skip>${_is-skip-generate-exe}</skip>
 							<target>
 								<copy file="${project.build.directory}/${project.artifactId}-${project.version}-exe.jar" tofile="${binOutputDirectory}/${exe.base.filename}" />
 								<chmod file="${binOutputDirectory}/${exe.base.filename}" perm="+x" />
@@ -798,7 +798,7 @@ as long as the `exe.main.class` has been defined.
 									<goal>run</goal>
 								</goals>
 								<configuration>
-									<skip>${is-skip-generate-exe}</skip>
+									<skip>${_is-skip-generate-exe}</skip>
 									<target>
 										<echo file="${assemblyDirectory}/bin.xml" encoding="UTF-8">
 											<![CDATA[<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
@@ -868,7 +868,7 @@ as long as the `exe.main.class` has been defined.
 									<goal>single</goal>
 								</goals>
 								<configuration>
-									<skipAssembly>${is-skip-generate-exe}</skipAssembly>
+									<skipAssembly>${_is-skip-generate-exe}</skipAssembly>
 									<descriptors>
 										<descriptor>${assemblyDirectory}/bin.xml</descriptor>
 									</descriptors>
