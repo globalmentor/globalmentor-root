@@ -13,6 +13,8 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : Set to the year in which the project was built, in UTC; a string in the format `YYYY`. 
 `build.date`
 : Set to the date on which the project was built, in UTC; a string in the format `YYYY-MM-DD`.
+`build.timestamp`
+: Set to the date and time at which the project was built, in UTC; a string in the format `YYYY-MM-DDTHH:MM:SSZ`.
 `assemblyDirectory`
 : The temporary build directory for assembly descriptors; defaults to `${project.build.directory}/assembly`
 
@@ -517,6 +519,7 @@ as long as the `exe.main.class` has been defined.
 						</goals>
 						<configuration>
 							<locale>en</locale>
+							<timeSource>build</timeSource>
 							<timeZone>UTC</timeZone>
 							<name>build.year</name>
 							<pattern>yyyy</pattern>
@@ -529,9 +532,23 @@ as long as the `exe.main.class` has been defined.
 						</goals>
 						<configuration>
 							<locale>en</locale>
+							<timeSource>build</timeSource>
 							<timeZone>UTC</timeZone>
 							<name>build.date</name>
 							<pattern>yyyy-MM-dd</pattern>
+						</configuration>
+					</execution>
+					<execution>
+						<id>set-build-timestamp</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<locale>en</locale>
+							<timeSource>build</timeSource>
+							<timeZone>UTC</timeZone>
+							<name>build.timestamp</name>
+							<pattern>yyyy-MM-dd'T'HH:mm'Z'</pattern>
 						</configuration>
 					</execution>
 					<!-- Sets Boolean `_is-skip-generate-exe` equivalent to "not defined `exe.main.class`". -->
@@ -736,6 +753,7 @@ as long as the `exe.main.class` has been defined.
 	<comment>Generated build information for class `${exe.main.class}`.</comment>
 	<entry key="name">${_xml.cdata.begin}${project.name}${_xml.cdata.end}</entry>
 	<entry key="version">${_xml.cdata.begin}${project.version}${_xml.cdata.end}</entry>
+	<entry key="builtAt">${_xml.cdata.begin}${build.timestamp}${_xml.cdata.end}</entry>
 </properties>]]>
 								</echo>
 							</target>
