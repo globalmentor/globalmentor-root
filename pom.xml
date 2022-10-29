@@ -25,9 +25,9 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The output directory for scripts; defaults to `${project.build.directory}/bin`
 `exe.main.class`
 : The full class name of the class containing the `main()` method for an executable JAR; no default.
-  This property also functions as a flag to create an an executable JAR, create a Linux executable script from the executable JAR,
-  and if the `publish` profile is in effect produce a "bin" archive with the executable files during the `package` phase.
-  Generation of a Windows executable will still need to enabled by declaring the `launch4j-maven-plugin`.   
+  This property also functions as a flag to create an an executable JAR, create a Linux executable
+  script from the executable JAR, generate a Windows executable, and if the `publish` profile is
+  in effect produce a "bin" archive with the executable files during the `package` phase.
 `exe.base.filename`
 : The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
 `exe.filename`
@@ -54,18 +54,6 @@ and the `prepare-bin-files` profile activated. The scripts will be included in a
 
 Note that under the current implementaiton, the `bin` distributable will only be created if an `${exe.main.class}`
 is specified.
-
-## Executables
-
-To generate a Windows executable, define `exe.main.class` and then include the following plugin
-in the `<plugins>` section; its `generate-exe` execution has already been defined and will execute
-in the `pre-integration-test` phase.
-
-```xml
-<plugin>
-  <groupId>com.akathist.maven.plugins.launch4j</groupId>
-  <artifactId>launch4j-maven-plugin</artifactId>
-</plugin>
 ```
 
 The executable JAR will automatically be copied into the same directory in the same phase as a *nix executable script
