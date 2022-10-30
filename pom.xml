@@ -41,11 +41,6 @@ Copyright © 2018-2022 GlobalMentor, Inc. (https://www.globalmentor.com/)
 `_isSkipGenerateExe`
 : Set to `false` if `${exe.base.filename}` is defined; otherwise set to `true`.
   This property is used to skip exe-related plugin executions.
-`_buildPropertiesPath`
-: Set to `target/classes/com/example/MainClass-build.properties.xml` if `${exe.main.class}` is defined;
-  otherwise set to `target/build-properties.xml`.
-`_build.propertiesXmlContent`
-: The contents of the generated build properties XML file.
 
 ## Scripts
 
@@ -120,16 +115,6 @@ as long as the `exe.main.class` has been defined.
 		<nexus.host>s01.oss.sonatype.org</nexus.host>
 		<_xml.cdata.begin>&lt;![CDATA[</_xml.cdata.begin>
 		<_xml.cdata.end>]]&gt;</_xml.cdata.end>
-		<_build.propertiesXmlContent>
-			<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-	<comment>Generated build information.</comment>
-	<entry key="name">${_xml.cdata.begin}${project.name}${_xml.cdata.end}</entry>
-	<entry key="version">${_xml.cdata.begin}${project.version}${_xml.cdata.end}</entry>
-	<entry key="builtAt">${_xml.cdata.begin}${build.timestamp}${_xml.cdata.end}</entry>
-</properties>]]>
-		</_build.propertiesXmlContent>
 	</properties>
 
 	<dependencies>
@@ -601,46 +586,6 @@ as long as the `exe.main.class` has been defined.
 							<failIfNoMatch>false</failIfNoMatch>
 						</configuration>
 					</execution>
-					<!--
-						Sets `${_buildPropertiesPath}` to `classes/com/example/MainClass-build.properties.xml` 
-						if `${exe.main.class}` is defined; otherwise to `build.properties.xml.
-					-->
-					<execution>
-						<id>set-build-properties-path-or-prefixed</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>regex-property</goal>
-						</goals>
-						<configuration>
-							<name>_buildPropertiesPath</name>
-							<value>_${exe.main.class}</value>
-							<regex>_\$\{exe.main.class\}</regex>
-							<!-- It would be better to use `${project.build.directory}/build.properties.xml`;
-								see [Issue #155](https://github.com/mojohaus/build-helper-maven-plugin/issues/155). -->
-							<replacement>build.properties.xml</replacement>
-							<failIfNoMatch>false</failIfNoMatch>
-						</configuration>
-					</execution>
-					<execution>
-						<id>set-build-properties-path</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>regex-property</goal>
-						</goals>
-						<configuration>
-							<name>_buildPropertiesPath</name>
-							<value>${_buildPropertiesPath}</value>
-							<regex>_.*</regex>
-							<!--
-								The use of the literal `classes/` is not ideal here.
-								It would be better to use `${project.build.directory}/build.properties.xml` above and
-								`${project.build.outputDirectory}${_exe.main.classAsAbsolutePath}-build.properties.xml` here,
-								but for [Issue #155](https://github.com/mojohaus/build-helper-maven-plugin/issues/155).
-							-->
-							<replacement>classes${_exe.main.classAsAbsolutePath}-build.properties.xml</replacement>
-							<failIfNoMatch>false</failIfNoMatch>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
 
@@ -705,28 +650,6 @@ as long as the `exe.main.class` has been defined.
 			</plugin>
 
 			<!-- Generate program executable and related distributables if `${exe.main.class}` is set. -->
-			<!-- phase: generate-resources -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-help-plugin</artifactId>
-				<executions>
-					<execution>
-						<!--
-							Generates build properties to `${_buildPropertiesPath}`.
-						-->
-						<id>generate-build-properties</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>evaluate</goal>
-						</goals>
-						<configuration>
-							<expression>_build.propertiesXmlContent</expression>
-							<output>${project.build.directory}/${_buildPropertiesPath}</output>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 			<!-- phase: package -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -797,6 +720,34 @@ as long as the `exe.main.class` has been defined.
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
+					<!-- phase: generate-resources -->
+					<execution>
+						<!--
+							Generates a build properties file for `${exe.main.class}`, e.g. for `com.example.MainClass`
+							in the form `target/classes/com/example/MainClass-build.properties.xml`.
+						-->
+						<id>generate-bin-assembly-descriptor</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<skip>${_isSkipGenerateExe}</skip>
+							<target>
+								<echo file="${project.build.outputDirectory}${_exe.main.classAsAbsolutePath}-build.properties.xml" encoding="UTF-8">
+									<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Generated build information.</comment>
+	<entry key="name">${_xml.cdata.begin}${project.name}${_xml.cdata.end}</entry>
+	<entry key="version">${_xml.cdata.begin}${project.version}${_xml.cdata.end}</entry>
+	<entry key="builtAt">${_xml.cdata.begin}${build.timestamp}${_xml.cdata.end}</entry>
+</properties>]]>
+								</echo>
+							</target>
+						</configuration>
+					</execution>
+					<!-- phase: package -->
 					<execution>
 						<!--
 							Copies the executable JAR to `${binOutputDirectory}` as a *nix script and makes it executable.
