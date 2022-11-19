@@ -726,7 +726,7 @@ as long as the `exe.main.class` has been defined.
 							Generates a build properties file for `${exe.main.class}`, e.g. for `com.example.MainClass`
 							in the form `target/classes/com/example/MainClass-build.properties.xml`.
 						-->
-						<id>generate-bin-assembly-descriptor</id>
+						<id>generate-build-properties</id>
 						<phase>generate-resources</phase>
 						<goals>
 							<goal>run</goal>
