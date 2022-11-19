@@ -98,11 +98,11 @@ as long as the `exe.main.class` has been defined.
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release> <!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<mockito.version>4.8.1</mockito.version>
+		<mockito.version>4.9.0</mockito.version>
 		<junit.version>5.9.1</junit.version>
 		<hamcrest.version>2.2</hamcrest.version>
-		<slf4j.version>2.0.3</slf4j.version>
-		<logback.version>1.4.4</logback.version>
+		<slf4j.version>2.0.4</slf4j.version>
+		<logback.version>1.4.5</logback.version>
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
