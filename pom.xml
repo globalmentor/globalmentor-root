@@ -95,6 +95,7 @@ as long as the `exe.main.class` has been defined.
 	</scm>
 
 	<properties>
+		<build.finalBaseName>${project.artifactId}</build.finalBaseName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release> <!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
@@ -247,6 +248,8 @@ as long as the `exe.main.class` has been defined.
 	</dependencyManagement>
 
 	<build>
+		<finalName>${build.finalBaseName}-${project.version}</finalName>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
