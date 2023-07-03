@@ -99,6 +99,7 @@ as long as the `exe.main.class` has been defined.
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release> <!-- JDK 9+ required to build -->
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
+		<spring.boot.version>3.1.1</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
 		<slf4j.version>2.0.7</slf4j.version>
 		<logback.version>1.4.7</logback.version>
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
@@ -460,7 +461,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>${spring.boot.version}</version>
 				</plugin>
 
 				<!-- Eclipse m2e settings; does not influence Maven build. -->
