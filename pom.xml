@@ -102,11 +102,11 @@ as long as the `exe.main.class` has been defined.
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
 		<!-- versions -->
 		<hamcrest.version>2.2</hamcrest.version>
-		<junit.version>5.9.3</junit.version>
-		<logback.version>1.4.7</logback.version>
-		<mockito.version>5.3.1</mockito.version>
+		<junit.version>5.10.0</junit.version>
+		<logback.version>1.4.8</logback.version>
+		<mockito.version>5.4.0</mockito.version>
 		<slf4j.version>2.0.7</slf4j.version>
-		<spring.boot.version>3.1.1</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
+		<spring.boot.version>3.1.2</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
 		<!-- files and directories -->		
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
