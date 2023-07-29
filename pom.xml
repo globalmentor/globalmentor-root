@@ -98,10 +98,16 @@ as long as the `exe.main.class` has been defined.
 		<build.finalBaseName>${project.artifactId}</build.finalBaseName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release> <!-- JDK 9+ required to build -->
+		<nexus.host>s01.oss.sonatype.org</nexus.host>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
-		<spring.boot.version>3.1.1</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
-		<slf4j.version>2.0.7</slf4j.version>
+		<!-- versions -->
+		<hamcrest.version>2.2</hamcrest.version>
+		<junit.version>5.9.3</junit.version>
 		<logback.version>1.4.7</logback.version>
+		<mockito.version>5.3.1</mockito.version>
+		<slf4j.version>2.0.7</slf4j.version>
+		<spring.boot.version>3.1.1</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
+		<!-- files and directories -->		
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
@@ -111,7 +117,6 @@ as long as the `exe.main.class` has been defined.
 		-->
 		<exe.base.filename>${project.artifactId}</exe.base.filename>
 		<exe.filename>${exe.base.filename}.exe</exe.filename>
-		<nexus.host>s01.oss.sonatype.org</nexus.host>
 		<_xml.cdata.begin>&lt;![CDATA[</_xml.cdata.begin>
 		<_xml.cdata.end>]]&gt;</_xml.cdata.end>
 	</properties>
@@ -167,7 +172,7 @@ as long as the `exe.main.class` has been defined.
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
-				<version>5.9.3</version>
+				<version>${junit.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -175,7 +180,7 @@ as long as the `exe.main.class` has been defined.
 			<dependency>
 				<groupId>org.hamcrest</groupId>
 				<artifactId>hamcrest</artifactId>
-				<version>2.2</version>
+				<version>${hamcrest.version}</version>
 			</dependency>
 
 			<dependency>
@@ -235,7 +240,7 @@ as long as the `exe.main.class` has been defined.
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-bom</artifactId>
-				<version>5.3.1</version>
+				<version>${mockito.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
