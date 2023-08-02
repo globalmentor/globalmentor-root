@@ -460,6 +460,7 @@ as long as the `exe.main.class` has been defined.
 						<serverId>ossrh</serverId>
 						<nexusUrl>https://${nexus.host}/</nexusUrl>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						<skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
 					</configuration>
 				</plugin>
 
@@ -553,6 +554,35 @@ as long as the `exe.main.class` has been defined.
 							<timeZone>UTC</timeZone>
 							<name>build.timestamp</name>
 							<pattern>yyyy-MM-dd'T'HH:mm'Z'</pattern>
+						</configuration>
+					</execution>
+					<!-- Sets Boolean `${maven.deploy.skip}` equivalent to "not empty `${nexus.host}`". -->
+					<execution>
+						<id>set-is-skip-deploy-true-or-prefixed</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>maven.deploy.skip</name>
+							<value>_${nexus.host}</value>
+							<regex>^_$</regex>
+							<replacement>true</replacement>
+							<failIfNoMatch>false</failIfNoMatch>
+						</configuration>
+					</execution>
+					<execution>
+						<id>set-is-skip-deploy</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>maven.deploy.skip</name>
+							<value>${maven.deploy.skip}</value>
+							<regex>^_.*</regex>
+							<replacement>false</replacement>
+							<failIfNoMatch>false</failIfNoMatch>
 						</configuration>
 					</execution>
 					<!-- Sets Boolean `${_isSkipGenerateExe}` equivalent to "not defined `${exe.main.class}`". -->
