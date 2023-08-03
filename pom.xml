@@ -32,8 +32,12 @@ Copyright © 2018-2023 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
 `exe.filename`
 : The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
+`maven.deploy.skip`
+: Disables default Maven deployment (both Nexus Staging Plugin and Maven Deploy Plugin).
 `nexus.host`
 : The hostname of the Nexus server for publishing artifacts.
+  If set to the empty string (`<nexus.host></nexus.host>`), sets `maven.deploy.skip` to `true`.
+  That is, removing the Nexus host value turns of Maven/Nexus deployment by default.
 
 ### Internal Properties
 `_exe.main.classAsAbsolutePath`
