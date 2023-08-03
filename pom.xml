@@ -32,8 +32,12 @@ Copyright © 2018-2023 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
 `exe.filename`
 : The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
+`maven.deploy.skip`
+: Disables default Maven deployment (both Nexus Staging Plugin and Maven Deploy Plugin).
 `nexus.host`
 : The hostname of the Nexus server for publishing artifacts.
+  If set to the empty string (`<nexus.host></nexus.host>`), sets `maven.deploy.skip` to `true`.
+  That is, removing the Nexus host value turns of Maven/Nexus deployment by default.
 
 ### Internal Properties
 `_exe.main.classAsAbsolutePath`
@@ -460,6 +464,7 @@ as long as the `exe.main.class` has been defined.
 						<serverId>ossrh</serverId>
 						<nexusUrl>https://${nexus.host}/</nexusUrl>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						<skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
 					</configuration>
 				</plugin>
 
@@ -553,6 +558,35 @@ as long as the `exe.main.class` has been defined.
 							<timeZone>UTC</timeZone>
 							<name>build.timestamp</name>
 							<pattern>yyyy-MM-dd'T'HH:mm'Z'</pattern>
+						</configuration>
+					</execution>
+					<!-- Sets Boolean `${maven.deploy.skip}` equivalent to "not empty `${nexus.host}`". -->
+					<execution>
+						<id>set-is-skip-deploy-true-or-prefixed</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>maven.deploy.skip</name>
+							<value>_${nexus.host}</value>
+							<regex>^_$</regex>
+							<replacement>true</replacement>
+							<failIfNoMatch>false</failIfNoMatch>
+						</configuration>
+					</execution>
+					<execution>
+						<id>set-is-skip-deploy</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>regex-property</goal>
+						</goals>
+						<configuration>
+							<name>maven.deploy.skip</name>
+							<value>${maven.deploy.skip}</value>
+							<regex>^_.*</regex>
+							<replacement>false</replacement>
+							<failIfNoMatch>false</failIfNoMatch>
 						</configuration>
 					</execution>
 					<!-- Sets Boolean `${_isSkipGenerateExe}` equivalent to "not defined `${exe.main.class}`". -->
