@@ -107,7 +107,7 @@ as long as the `exe.main.class` has been defined.
 		<!-- versions -->
 		<hamcrest.version>2.2</hamcrest.version>
 		<junit.version>5.10.0</junit.version>
-		<logback.version>1.4.8</logback.version>
+		<logback.version>1.4.10</logback.version>
 		<mockito.version>5.4.0</mockito.version>
 		<slf4j.version>2.0.7</slf4j.version>
 		<spring.boot.version>3.1.2</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
@@ -283,7 +283,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.3.1</version>
 				</plugin>
 
 				<plugin>
@@ -428,7 +428,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>3.3.2</version>
+					<version>3.4.0</version>
 				</plugin>
 
 				<plugin>
