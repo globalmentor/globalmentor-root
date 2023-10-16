@@ -19,10 +19,13 @@ Copyright © 2018-2023 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The temporary build directory for assembly descriptors; defaults to `${project.build.directory}/assembly`
 
 ### Configurable Properties
+`annotationsGeneratedSourcesDirectory`
+: The directory for generated source files related to annotation processing; defaults to `${generatedSourcesDirectory}/annotations`.
+  If changed will automatically update the Maven Compiler Plugin's setting for generated sources for annotation processing.
 `binSourceDirectory`
 : The source directory for scripts; defaults to `${project.basedir}/src/bin`.
 `binOutputDirectory`
-: The output directory for scripts; defaults to `${project.build.directory}/bin`
+: The output directory for scripts; defaults to `${project.build.directory}/bin`.
 `exe.main.class`
 : The full class name of the class containing the `main()` method for an executable JAR; no default.
   This property also functions as a flag to create an an executable JAR, create a Linux executable
@@ -32,6 +35,8 @@ Copyright © 2018-2023 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The base filename (e.g. `my-cli`) of any generated executable script or program; defaults to `${project.artifactId}`.
 `exe.filename`
 : The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
+`generatedSourcesDirectory`
+: The directory for generated source files; defaults to `${project.build.directory}/generated-sources`.
 `maven.deploy.skip`
 : Disables default Maven deployment (both Nexus Staging Plugin and Maven Deploy Plugin).
 `nexus.host`
@@ -116,6 +121,8 @@ as long as the `exe.main.class` has been defined.
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
 		<binOutputDirectory>${project.build.directory}/bin</binOutputDirectory>
+		<generatedSourcesDirectory>${project.build.directory}/generated-sources</generatedSourcesDirectory>
+		<annotationsGeneratedSourcesDirectory>${generatedSourcesDirectory}/annotations</annotationsGeneratedSourcesDirectory>
 		<!--
 			Set to generate executable JAR, exe file, and distributables.
 			<exe.main.class>com.example.cli.Example</exe.main.class>
@@ -272,6 +279,7 @@ as long as the `exe.main.class` has been defined.
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.11.0</version>
 					<configuration>
+						<generatedSourcesDirectory>${annotationsGeneratedSourcesDirectory}</generatedSourcesDirectory>
 						<showDeprecation>true</showDeprecation>
 						<showWarnings>true</showWarnings>
 						<compilerArgs>
