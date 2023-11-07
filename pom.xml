@@ -112,11 +112,11 @@ as long as the `exe.main.class` has been defined.
 		<!-- versions -->
 		<hamcrest.version>2.2</hamcrest.version>
 		<jakartaee.version>10.0.0</jakartaee.version>
-		<junit.version>5.10.0</junit.version>
-		<logback.version>1.4.10</logback.version>
-		<mockito.version>5.4.0</mockito.version>
+		<junit.version>5.10.1</junit.version>
+		<logback.version>1.4.11</logback.version>
+		<mockito.version>5.7.0</mockito.version>
 		<slf4j.version>2.0.9</slf4j.version>
-		<spring.boot.version>3.1.2</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
+		<spring.boot.version>3.1.5</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
 		<!-- files and directories -->
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
@@ -265,7 +265,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.3.1</version>
+					<version>3.3.2</version>
 				</plugin>
 
 				<plugin>
@@ -285,7 +285,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>3.6.0</version>
+					<version>3.6.1</version>
 				</plugin>
 
 				<plugin>
@@ -297,13 +297,13 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.3.0</version>
+					<version>3.4.1</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>3.1.2</version>
+					<version>3.2.2</version>
 				</plugin>
 
 				<plugin>
@@ -333,7 +333,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.5.0</version>
+					<version>3.6.2</version>
 					<configuration>
 						<quiet>true</quiet>
 						<detectOfflineLinks>false</detectOfflineLinks>
@@ -408,7 +408,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.1.2</version>
+					<version>3.2.2</version>
 				</plugin>
 
 				<plugin>
@@ -426,7 +426,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.16.0</version>
+					<version>2.16.1</version>
 					<configuration>
 						<ruleSet>
 							<ignoreVersions>
