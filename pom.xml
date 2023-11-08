@@ -431,11 +431,14 @@ as long as the `exe.main.class` has been defined.
 						<ruleSet>
 							<ignoreVersions>
 								<ignoreVersion><type>regex</type><version>.*-SNAPSHOT</version></ignoreVersion>
-								<ignoreVersion><type>regex</type><version>.*-alpha(?:-?\d+)?</version></ignoreVersion>
-								<ignoreVersion><type>regex</type><version>.*-beta(?:-?\d+)?</version></ignoreVersion>
+								<ignoreVersion><type>regex</type><version>.*-[aA]\d+</version></ignoreVersion>
+								<ignoreVersion><type>regex</type><version>.*[.-][aA]lpha(?:-?\d+)?</version></ignoreVersion>
+								<ignoreVersion><type>regex</type><version>.*-[bB]\d+</version></ignoreVersion> <!-- Jakarta EE-->
+								<ignoreVersion><type>regex</type><version>.*[.-][bB]eta(?:-?\d+)?</version></ignoreVersion>
 								<ignoreVersion><type>regex</type><version>.*-M(?:-?\d+)?</version></ignoreVersion>
+								<ignoreVersion><type>regex</type><version>.*\.MR</version></ignoreVersion> <!-- Jakarta EE-->
 								<ignoreVersion><type>regex</type><version>.*-RC(?:-?\d+)?</version></ignoreVersion>
-								<ignoreVersion><type>regex</type><version>.*-pfd(?:-?\d+)?</version></ignoreVersion>
+								<ignoreVersion><type>regex</type><version>.*-pfd(?:-?\d+)?</version></ignoreVersion> <!-- JCP Proposed Final Draft -->
 							</ignoreVersions>
 						</ruleSet>
 					</configuration>
