@@ -24,3 +24,5 @@ This POM is configured not to list non-release versions when checking for newer 
 * `jakarta.persistence:jakarta.persistence-api:3.2.0-B01`
 * `maven-surefire-plugin:3.0.0-M7`
 * `jakarta.inject:jakarta.inject-api:2.0.1.MR`
+* `com.fasterxml.jackson.core:jackson-core:2.16.0-rc1`
+
