@@ -428,7 +428,7 @@ as long as the `exe.main.class` has been defined.
 								<ignoreVersion><type>regex</type><version>.*[.-][bB]eta(?:-?\d+)?</version></ignoreVersion>
 								<ignoreVersion><type>regex</type><version>.*-M(?:-?\d+)?</version></ignoreVersion>
 								<ignoreVersion><type>regex</type><version>.*\.MR</version></ignoreVersion> <!-- Jakarta EE-->
-								<ignoreVersion><type>regex</type><version>.*-RC(?:-?\d+)?</version></ignoreVersion>
+								<ignoreVersion><type>regex</type><version>.*-(?:rc|RC)(?:-?\d+)?</version></ignoreVersion> <!-- Jackson `…-rc…` -->
 								<ignoreVersion><type>regex</type><version>.*-pfd(?:-?\d+)?</version></ignoreVersion> <!-- JCP Proposed Final Draft -->
 							</ignoreVersions>
 						</ruleSet>
