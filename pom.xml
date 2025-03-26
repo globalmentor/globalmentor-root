@@ -110,12 +110,12 @@ as long as the `exe.main.class` has been defined.
 		<nexus.host>s01.oss.sonatype.org</nexus.host>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
 		<!-- versions -->
-		<hamcrest.version>2.2</hamcrest.version>
-		<junit.version>5.10.1</junit.version>
-		<logback.version>1.4.11</logback.version>
-		<mockito.version>5.7.0</mockito.version>
-		<slf4j.version>2.0.9</slf4j.version>
-		<spring.boot.version>3.1.5</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
+		<hamcrest.version>3.0</hamcrest.version>
+		<junit.version>5.12.1</junit.version>
+		<logback.version>1.5.18</logback.version>
+		<mockito.version>5.16.1</mockito.version>
+		<slf4j.version>2.0.17</slf4j.version>
+		<spring.boot.version>3.4.4</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
 		<!-- files and directories -->
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
@@ -238,7 +238,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>com.akathist.maven.plugins.launch4j</groupId>
 					<artifactId>launch4j-maven-plugin</artifactId>
-					<version>2.4.1</version>
+					<version>2.5.3</version>
 				</plugin>
 
 				<plugin>
@@ -250,19 +250,19 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.6.0</version>
+					<version>3.7.1</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.3.2</version>
+					<version>3.4.1</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.11.0</version>
+					<version>3.14.0</version>
 					<configuration>
 						<generatedSourcesDirectory>${annotationsGeneratedSourcesDirectory}</generatedSourcesDirectory>
 						<showDeprecation>true</showDeprecation>
@@ -276,55 +276,55 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>3.6.1</version>
+					<version>3.8.1</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.1.1</version>
+					<version>3.1.4</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.4.1</version>
+					<version>3.5.0</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>3.2.2</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-help-plugin</artifactId>
-					<version>3.4.0</version>
+					<version>3.5.2</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-gpg-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>3.2.7</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-help-plugin</artifactId>
+					<version>3.5.1</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>3.1.1</version>
+					<version>3.1.4</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.3.0</version>
+					<version>3.4.2</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.6.2</version>
+					<version>3.11.2</version>
 					<configuration>
 						<quiet>true</quiet>
 						<detectOfflineLinks>false</detectOfflineLinks>
@@ -372,7 +372,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>3.0.1</version>
+					<version>3.1.1</version>
 				</plugin>
 
 				<plugin>
@@ -387,19 +387,19 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.12.1</version>
+					<version>3.21.0</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>3.3.0</version>
+					<version>3.3.1</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.2.2</version>
+					<version>3.5.2</version>
 				</plugin>
 
 				<plugin>
@@ -411,13 +411,13 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>3.4.0</version>
+					<version>3.6.0</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.16.1</version>
+					<version>2.18.0</version>
 					<configuration>
 						<ruleSet>
 							<ignoreVersions>
@@ -438,7 +438,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.sonatype.plugins</groupId>
 					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>1.6.13</version>
+					<version>1.7.0</version>
 					<extensions>true</extensions>
 					<configuration>
 						<serverId>ossrh</serverId>
