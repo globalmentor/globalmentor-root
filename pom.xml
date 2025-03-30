@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 GlobalMentor, Inc. Root POM
-Copyright © 2018-2023 GlobalMentor, Inc. (https://www.globalmentor.com/)
+Copyright © 2018-2025 GlobalMentor, Inc. (https://www.globalmentor.com/)
 
 ## Properties
 
@@ -68,7 +68,7 @@ as long as the `exe.main.class` has been defined.
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>1.0.2</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
