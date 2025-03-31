@@ -68,7 +68,7 @@ as long as the `exe.main.class` has been defined.
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
@@ -295,6 +295,13 @@ as long as the `exe.main.class` has been defined.
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>3.5.2</version>
+					<configuration>
+						<!-- Set up [Mockito inline mocking](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3). -->
+						<argLine>
+							-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+							-Xshare:off
+						</argLine>
+					</configuration>
 				</plugin>
 
 				<plugin>
@@ -400,6 +407,13 @@ as long as the `exe.main.class` has been defined.
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.2</version>
+					<configuration>
+						<!-- Set up [Mockito inline mocking](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3). -->
+						<argLine>
+							-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+							-Xshare:off
+						</argLine>
+					</configuration>
 				</plugin>
 
 				<plugin>
