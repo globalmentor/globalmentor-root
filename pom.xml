@@ -68,7 +68,7 @@ as long as the `exe.main.class` has been defined.
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
