@@ -296,6 +296,11 @@ as long as the `exe.main.class` has been defined.
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>3.5.2</version>
 					<configuration>
+						<!-- Suppress logging and SLF4J internal `INFO` messages when running tests. -->
+						<systemPropertyVariables>
+							<slf4j.provider>org.slf4j.helpers.NOP_FallbackServiceProvider</slf4j.provider>
+							<slf4j.internal.verbosity>WARN</slf4j.internal.verbosity>
+						</systemPropertyVariables>					
 						<!-- Set up [Mockito inline mocking](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3). -->
 						<argLine>
 							-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
@@ -408,6 +413,11 @@ as long as the `exe.main.class` has been defined.
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>3.5.2</version>
 					<configuration>
+						<!-- Suppress logging and SLF4J internal `INFO` messages when running tests. -->
+						<systemPropertyVariables>
+							<slf4j.provider>org.slf4j.helpers.NOP_FallbackServiceProvider</slf4j.provider>
+							<slf4j.internal.verbosity>WARN</slf4j.internal.verbosity>
+						</systemPropertyVariables>					
 						<!-- Set up [Mockito inline mocking](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3). -->
 						<argLine>
 							-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
