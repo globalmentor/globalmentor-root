@@ -111,11 +111,11 @@ as long as the `exe.main.class` has been defined.
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
 		<!-- versions -->
 		<hamcrest.version>3.0</hamcrest.version>
-		<junit.version>5.12.1</junit.version>
+		<junit.version>5.13.1</junit.version>
 		<logback.version>1.5.18</logback.version>
-		<mockito.version>5.16.1</mockito.version>
+		<mockito.version>5.18.0</mockito.version>
 		<slf4j.version>2.0.17</slf4j.version>
-		<spring.boot.version>3.4.4</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
+		<spring.boot.version>3.5.0</spring.boot.version> <!-- used for Spring Boot Maven Plugin; update and use if child project imports Spring Boot BOM -->
 		<!-- files and directories -->
 		<assemblyDirectory>${project.build.directory}/assembly</assemblyDirectory>
 		<binSourceDirectory>${project.basedir}/src/bin</binSourceDirectory>
@@ -238,7 +238,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>com.akathist.maven.plugins.launch4j</groupId>
 					<artifactId>launch4j-maven-plugin</artifactId>
-					<version>2.5.3</version>
+					<version>2.6.0</version>
 				</plugin>
 
 				<plugin>
@@ -256,7 +256,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.4.1</version>
+					<version>3.5.0</version>
 				</plugin>
 
 				<plugin>
@@ -294,7 +294,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>3.5.2</version>
+					<version>3.5.3</version>
 					<configuration>
 						<!-- Suppress logging and SLF4J internal `INFO` messages when running tests. -->
 						<systemPropertyVariables>
@@ -411,7 +411,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.5.2</version>
+					<version>3.5.3</version>
 					<configuration>
 						<!-- Suppress logging and SLF4J internal `INFO` messages when running tests. -->
 						<systemPropertyVariables>
@@ -435,7 +435,7 @@ as long as the `exe.main.class` has been defined.
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>3.6.0</version>
+					<version>3.6.1</version>
 				</plugin>
 
 				<plugin>
