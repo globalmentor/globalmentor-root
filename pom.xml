@@ -733,6 +733,11 @@ as long as the `exe.main.class` has been defined.
 							<jre>
 								<path>%JAVA_HOME%;%PATH%</path>
 								<minVersion>${maven.compiler.release}</minVersion>
+								<opts>
+									<!-- Allow native access for Jansi. -->
+									<!-- Allowance will be narrowed in JAVA-385 when Jansi supports modules. -->
+									<opt>--enable-native-access=ALL-UNNAMED</opt>
+								</opts>
 							</jre>
 							<versionInfo>
 								<fileVersion>${project.releaseVersion}.0</fileVersion>
