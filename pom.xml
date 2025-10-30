@@ -136,10 +136,16 @@ as long as the `exe.main.class` has been defined.
 	</properties>
 
 	<dependencies>
-		<dependency>
+		<dependency> <!-- JSR 305 support is deprecated for removal in favor of JSpecify. -->
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jspecify</groupId>
+			<artifactId>jspecify</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 
 		<!-- test scope dependencies -->
@@ -309,7 +315,7 @@ as long as the `exe.main.class` has been defined.
 						<systemPropertyVariables>
 							<slf4j.provider>org.slf4j.helpers.NOP_FallbackServiceProvider</slf4j.provider>
 							<slf4j.internal.verbosity>WARN</slf4j.internal.verbosity>
-						</systemPropertyVariables>					
+						</systemPropertyVariables>
 						<!-- Set up [Mockito inline mocking](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3). -->
 						<argLine>
 							-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
@@ -426,7 +432,7 @@ as long as the `exe.main.class` has been defined.
 						<systemPropertyVariables>
 							<slf4j.provider>org.slf4j.helpers.NOP_FallbackServiceProvider</slf4j.provider>
 							<slf4j.internal.verbosity>WARN</slf4j.internal.verbosity>
-						</systemPropertyVariables>					
+						</systemPropertyVariables>
 						<!-- Set up [Mockito inline mocking](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3). -->
 						<argLine>
 							-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
