@@ -26,6 +26,10 @@ Copyright © 2018-2025 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The source directory for scripts; defaults to `${project.basedir}/src/bin`.
 `binOutputDirectory`
 : The output directory for scripts; defaults to `${project.build.directory}/bin`.
+`central.publishing.enabled`
+: Opt-in flag for publishing to Maven Central; defaults to `false`.
+  Set to `true` in child project POMs to enable publishing, or use `-Dcentral.publishing.enabled=true` on the command line.
+  When deploying the root POM itself, this flag must be set to `true` via command line.
 `exe.main.class`
 : The full class name of the class containing the `main()` method for an executable JAR; no default.
   This property also functions as a flag to create an an executable JAR, create a Linux executable
@@ -37,14 +41,11 @@ Copyright © 2018-2025 GlobalMentor, Inc. (https://www.globalmentor.com/)
 : The filename of any generated Windows executable; defaults to `${exe.base.filename}.exe`.
 `generatedSourcesDirectory`
 : The directory for generated source files; defaults to `${project.build.directory}/generated-sources`.
-`maven.deploy.skip`
-: Disables default Maven deployment (both Nexus Staging Plugin and Maven Deploy Plugin).
-`nexus.host`
-: The hostname of the Nexus server for publishing artifacts.
-  If set to the empty string (`<nexus.host></nexus.host>`), sets `maven.deploy.skip` to `true`.
-  That is, removing the Nexus host value turns of Maven/Nexus deployment by default.
 
 ### Internal Properties
+`_central.publishing.skip`
+: Internal property that inverts the logic of `central.publishing.enabled` for the plugin's `skipPublishing` parameter.
+  Automatically set to `false` by the `_central-publishing-enabled` profile when `central.publishing.enabled` is `true`.
 `_exe.main.classAsAbsolutePath`
 : If `exe.base.filename` defined, set to the absolute path form of the class; e.g. `com.example.MainClass` becomes `/com/example/MainClass`. 
 `_isSkipGenerateExe`
@@ -68,7 +69,7 @@ as long as the `exe.main.class` has been defined.
 
 	<groupId>com.globalmentor</groupId>
 	<artifactId>globalmentor-root</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GlobalMentor Root</name>
@@ -107,8 +108,10 @@ as long as the `exe.main.class` has been defined.
 		<build.finalBaseName>${project.artifactId}</build.finalBaseName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
-		<nexus.host>s01.oss.sonatype.org</nexus.host>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
+		<!-- publishing -->
+		<central.publishing.enabled>false</central.publishing.enabled>
+		<_central.publishing.skip>true</_central.publishing.skip>
 		<!-- versions -->
 		<hamcrest.version>3.0</hamcrest.version>
 		<junit.version>5.13.1</junit.version>
@@ -466,15 +469,15 @@ as long as the `exe.main.class` has been defined.
 				</plugin>
 
 				<plugin>
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>1.7.0</version>
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>0.9.0</version>
 					<extensions>true</extensions>
 					<configuration>
-						<serverId>ossrh</serverId>
-						<nexusUrl>https://${nexus.host}/</nexusUrl>
-						<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						<skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
+						<publishingServerId>central</publishingServerId>
+						<autoPublish>true</autoPublish>
+						<waitUntil>published</waitUntil>
+						<skipPublishing>${_central.publishing.skip}</skipPublishing>
 					</configuration>
 				</plugin>
 
@@ -678,8 +681,8 @@ as long as the `exe.main.class` has been defined.
 			</plugin>
 
 			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
 			</plugin>
 
 			<!-- Generate program executable and related distributables if `${exe.main.class}` is set. -->
@@ -810,18 +813,21 @@ as long as the `exe.main.class` has been defined.
 		</plugins>
 	</build>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://${nexus.host}/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://${nexus.host}/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-
 	<profiles>
+		<profile>
+			<!-- Internal profile: automatically sets `skip=false` when `enabled=true`. -->
+			<id>_central-publishing-enabled</id>
+			<activation>
+				<property>
+					<name>central.publishing.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<properties>
+				<_central.publishing.skip>false</_central.publishing.skip>
+			</properties>
+		</profile>
+
 		<profile>
 			<!-- Provides additional atifacts and signs all artifacts for publishing. -->
 			<id>publish</id>
