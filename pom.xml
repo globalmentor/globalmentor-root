@@ -136,16 +136,9 @@ as long as the `exe.main.class` has been defined.
 	</properties>
 
 	<dependencies>
-		<dependency> <!-- JSR 305 support is deprecated for removal in favor of JSpecify. -->
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<dependency>
 			<groupId>org.jspecify</groupId>
 			<artifactId>jspecify</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 
 		<!-- test scope dependencies -->
@@ -184,9 +177,9 @@ as long as the `exe.main.class` has been defined.
 			</dependency>
 
 			<dependency>
-				<groupId>com.google.code.findbugs</groupId>
-				<artifactId>jsr305</artifactId>
-				<version>3.0.2</version>
+				<groupId>org.jspecify</groupId>
+				<artifactId>jspecify</artifactId>
+				<version>1.0.0</version>
 			</dependency>
 
 			<dependency>
