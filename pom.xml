@@ -107,7 +107,7 @@ as long as the `exe.main.class` has been defined.
 	<properties>
 		<build.finalBaseName>${project.artifactId}</build.finalBaseName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>21</maven.compiler.release>
 		<gpg.keyname>software@globalmentor.com</gpg.keyname>
 		<!-- publishing -->
 		<central.publishing.enabled>false</central.publishing.enabled>
