@@ -477,7 +477,7 @@ as long as the `exe.main.class` has been defined.
 					<configuration>
 						<publishingServerId>central</publishingServerId>
 						<autoPublish>true</autoPublish>
-						<waitUntil>published</waitUntil>
+						<waitUntil>validated</waitUntil>
 						<skipPublishing>${_isSkipCentralPublishing}</skipPublishing>
 					</configuration>
 				</plugin>
