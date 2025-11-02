@@ -592,7 +592,7 @@ as long as the `exe.main.class` has been defined.
 						<configuration>
 							<name>_isSkipCentralPublishing</name>
 							<value>${_isSkipCentralPublishing}</value>
-							<regex>^_.*</regex>
+							<regex>^_.*$</regex>
 							<replacement>!${enableCentralPublishing}</replacement>
 							<toLowerCase>true</toLowerCase>
 							<failIfNoMatch>false</failIfNoMatch>
@@ -646,7 +646,7 @@ as long as the `exe.main.class` has been defined.
 						<configuration>
 							<name>_isSkipGenerateExe</name>
 							<value>_${exe.main.class}</value>
-							<regex>_\$\{exe.main.class\}</regex>
+							<regex>^_\$\{exe\.main\.class\}$</regex>
 							<replacement>true</replacement>
 							<failIfNoMatch>false</failIfNoMatch>
 						</configuration>
@@ -660,7 +660,7 @@ as long as the `exe.main.class` has been defined.
 						<configuration>
 							<name>_isSkipGenerateExe</name>
 							<value>${_isSkipGenerateExe}</value>
-							<regex>_.*</regex>
+							<regex>^_.*$</regex>
 							<replacement>false</replacement>
 							<failIfNoMatch>false</failIfNoMatch>
 						</configuration>
